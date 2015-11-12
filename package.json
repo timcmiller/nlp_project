@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/timcmiller/nlp_project/issues"
   },
-  "homepage": "https://github.com/timcmiller/nlp_project#readme"
+  "homepage": "https://github.com/timcmiller/nlp_project#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
 }
