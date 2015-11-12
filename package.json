@@ -4,7 +4,7 @@
   "description": "A Natural Language Processing App",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/gulp/bin/gulp.js test"
+    "test": "./node_modules/mocha/bin/mocha test"
   },
   "repository": {
     "type": "git",
