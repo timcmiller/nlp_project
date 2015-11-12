@@ -6,6 +6,23 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css">
   <!-- app.css holds customized style -->
   <link rel="stylesheet" href="/stylesheets/app.css">
+  <script>
+      $(function(){
+        var processText = '';
+        var returnString = '';
+        $("button[type='submit']").click(function(){
+          processText = $("#processText").val();
+          $.post("/process", {text: processText}).done(function(data){
+            var returnObj = JSON.parse(data);
+            for (key in returnObj) {
+              returnString += ([key] + ": " + returnObj[key] + '\n');
+            }
+            $('.returnString').text(returnString);
+
+          })
+        })
+      })
+  </script>
 </head>
 <body>
   <!-- top nav -->
@@ -49,7 +66,8 @@
   </div>
 
   <!-- scripts for foundation -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
+
 </body>
 </html>
