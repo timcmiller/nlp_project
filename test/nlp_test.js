@@ -10,5 +10,5 @@ describe('the frequency method', function(){
     expect(typeof returnObject).to.eql(typeof {});
     expect(returnObject.duck).to.eql(6);
     expect(returnObject.goose).to.eql(2);
-  })
-})
+  });
+});
