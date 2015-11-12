@@ -2,10 +2,29 @@
 <html>
 <head>
   <title>NLP App!</title>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+    $(function(){
+      var processText = '';
+      var returnString = '';
+      $("button[type='submit']").click(function(){
+        processText = $("#processText").val();
+        $.post("/process", {text: processText}).done(function(data){
+          var returnObj = JSON.parse(data);
+          for (key in returnObj) {
+            returnString += ([key] + ": " + returnObj[key] + '\n');
+          }
+          $('.returnString').text(returnString);
+
+        })
+      })
+    })
+    </script>
 </head>
 <body>
 <h1>Welcome to our natural language processor!</h1>
-<textarea></textarea>
-<button>Process!</button>
+<textarea id='processText'></textarea>
+<button type='submit'>Submit</button>
+<p class="returnString"></p>
 </body>
 </html>
