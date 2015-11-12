@@ -8,7 +8,7 @@ describe('the frequency method', function(){
     var returnObject = frequency(testString);
     console.log(typeof returnObject);
     expect(typeof returnObject).to.eql(typeof {});
-    expect(returnObject.duck).to.eql(6);
-    expect(returnObject.goose).to.eql(2);
+    expect(returnObject.duck).to.eql(5);
+    expect(returnObject.goose).to.eql(1);
   });
 });
