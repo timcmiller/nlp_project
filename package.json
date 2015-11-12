@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/timcmiller/nlp_project#readme",
   "dependencies": {
-    "express": "^4.13.3"
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "mongoose": "^4.2.5"
   },
   "devDependencies": {
     "chai": "^3.4.1",
