@@ -18,7 +18,7 @@ describe('our NLP sever', function() {
     }.bind(this));
   });
 
-  it('should respond to a get request with our index page', function(done) {
+  it('should respond to a GET request with our index page', function(done) {
     chai.request('localhost:3000')
       .get('/')
       .end(function(err, res) {
@@ -29,4 +29,15 @@ describe('our NLP sever', function() {
       }.bind(this));
   });
 
+  it('should respond to a POST request to the process URL', function(done){
+    chai.request('localhost:3000')
+    .post('/process')
+    .type('form')
+    .send('text=You talking to me?')
+    .end(function(err, res){
+      expect(err).to.eql(null);
+      expect(res.text).to.eql('{"you":1,"talking":1,"to":1,"me":1}')
+      done();
+    })
+  })
 });
