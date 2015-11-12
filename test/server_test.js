@@ -5,7 +5,16 @@ var expect = chai.expect;
 var fs = require('fs');
 var server = require(__dirname + '/../index.js');
 
+process.env.MONGOLAB_URI = 'mongodb://localhost/nlp_test';
+var mongoose = require('mongoose');
+
 describe('our NLP sever', function() {
+
+  after(function(done) {
+    mongoose.connection.db.dropDatabase(function() {
+      done();
+    });
+  });
 
   before(function(done) {
     fs.readFile(__dirname + '/../public/index.html', function(err, data) {
