@@ -7,7 +7,7 @@ describe('the frequency method', function(){
     var testString = 'Duck duck duck duck duck goose. There should be 6 ducks and 2 gooses.'
     var returnObject = frequency(testString);
     console.log(typeof returnObject);
-    expect(typeof returnObject).to.eql(typeof {});
+    expect(returnObject).to.be.an('object');
     expect(returnObject.duck).to.eql(5);
     expect(returnObject.goose).to.eql(1);
   });
