@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var Collection = require(__dirname + '/../models/collections');
+var Collection; // = require(__dirname + '/../models/collections');
 
 var collectionRouter = module.exports = exports = express.Router();
 

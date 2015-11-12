@@ -4,6 +4,8 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var frequency = require(__dirname + '/lib/frequency');
+var collectionRouter = require(__dirname + '/routes/collection_routes.js');
+var articleRouter = require(__dirname + '/routes/article_routes.js');
 
 app.use('/api', collectionRouter);
 app.use('/api', articleRouter);

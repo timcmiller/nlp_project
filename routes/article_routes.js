@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var Article = require(__dirname + '/../models/articles');
+var Article; //= require(__dirname + '/../models/articles');
 
 var articleRouter = module.exports = exports = express.Router();
 
