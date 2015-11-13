@@ -7,7 +7,7 @@ var frequency = require(__dirname + '/lib/frequency');
 var collectionRouter = require(__dirname + '/routes/collection_routes.js');
 var articleRouter = require(__dirname + '/routes/article_routes.js');
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/nlp_database');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://tmiller:codefellows@ds053874.mongolab.com:53874/nlp_processing');
 
 app.use('/api', collectionRouter);
 app.use('/api', articleRouter);
@@ -21,7 +21,7 @@ app.post('/process', bodyParser.urlencoded({extended: true}), function(req, res)
   console.log(recievedText);
   var returnJSON = JSON.stringify(frequency(recievedText));
   res.send(returnJSON);
-})
+});
 
 app.listen(3000, function(){
   console.log('server up!');
