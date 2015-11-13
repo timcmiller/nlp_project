@@ -31,7 +31,6 @@ describe('our api routes', function() {
           expect(err).to.eql(null);
           currentArticle = res.body;
           expect(res.body).to.have.property('_id');
-          expect(res.body.title).to.eql('lorum ipsum');
           done();
       });
     });
