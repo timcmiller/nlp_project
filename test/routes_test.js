@@ -3,7 +3,7 @@ var chaihttp = require('chai-http');
 chai.use(chaihttp);
 var expect = chai.expect;
 
-process.env.MONGOLAB_URI = 'mongodb://localhost/nlp_test';
+process.env.MONGOLAB_URI = 'mongodb://tmiller:codefellows@ds053874.mongolab.com:53894/nlp_processing_test';
 
 var mongoose = require('mongoose');
 require(__dirname + '/../index.js');
