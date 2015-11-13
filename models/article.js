@@ -1,7 +1,10 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var collectionSchema = require(__dirname + '/collection.js').collectionSchema;
 
 var articleSchema = module.exports.articleSchema = mongoose.Schema({
   title: String,
+  collections: [{type: Schema.Types.ObjectId, ref: 'Collection'}],
   wordcounts: [{
     word: String,
     count: Number

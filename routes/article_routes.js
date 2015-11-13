@@ -14,10 +14,8 @@ articleRouter.get('/articles', function(req, res) {
 
 articleRouter.post('/articles', bodyParser.json(), function(req, res) {
   var newArticle = new Article(req.body);
-
   newArticle.save(function(err, data) {
     if(err) throw err;
-
     res.json(data);
   });
 });

@@ -2,14 +2,25 @@
   "name": "nlp_project",
   "version": "0.1.0",
   "description": "A Natural Language Processing App",
-  "main": "index.js",
+  "main": "./index.js",
+  "engines": {
+    "node": ">= 0.10.x"
+  },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha test"
+    "test": "./node_modules/mocha/bin/mocha test",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/timcmiller/nlp_project.git"
   },
+  "keywords": [
+    "mongoose",
+    "mongodb",
+    "node",
+    "express"
+
+    ],
   "author": "Robin Stringer, Tim Miller, Ansoo Chang, Kenji Crosland",
   "license": "MIT",
   "bugs": {

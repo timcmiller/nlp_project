@@ -36,8 +36,8 @@ describe('our NLP sever', function() {
     .send('text=You talking to me?')
     .end(function(err, res){
       expect(err).to.eql(null);
-      expect(res.text).to.eql('{"you":1,"talking":1,"to":1,"me":1}')
+      expect(res.text).to.eql('{"you":1,"talking":1,"to":1,"me":1}');
       done();
-    })
-  })
+    });
+  });
 });

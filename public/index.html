@@ -7,21 +7,30 @@
   <!-- app.css holds customized style -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script>
+  $(document).ready(function() {
   $(function(){
     var processText = '';
     var returnString = '';
     $("button[type='submit']").click(function(){
+      $(".returnString").fadeIn(500);
       processText = $("#processText").val();
       $.post("/process", {text: processText}).done(function(data){
         var returnObj = JSON.parse(data);
         for (key in returnObj) {
           returnString += ([key] + ": " + returnObj[key] + '\n');
         }
-        $('.returnString').text(returnString);
+        $(".returnString").text(returnString);
       })
     })
   })
+
+}) // end document ready
   </script>
+  <style>
+  .returnString {
+    display: none;
+  }
+  </style>
 </head>
 <body>
   <!-- top nav -->
@@ -58,11 +67,11 @@
   <div class="row">
     <div class="large-12 columns">
     <h1><small>Welcome to our natural language processor!</small></h1>
-    <p>The textrazr helps you extract hidden sentiments and behind songs and articles.</p>
+    <p>The textrazr helps you extract hidden sentiments and behind songs and articles. (Max number of words 5000)</p>
       <textarea id="processText"></textarea>
       <button type="submit" class="button large">Process!</button>
-    <div class="large-12 columns panel callout radius">
-      <p class="returnString"></p>
+    <div class="large-12 columns">
+      <p class="returnString panel callout radius"></p>
     </div>
     </div>
   </div>
