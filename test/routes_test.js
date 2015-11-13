@@ -43,7 +43,7 @@ describe('our api routes', function() {
         expect(err).to.eql(null);
         expect(Array.isArray(res.body)).to.eql(true);
         done();
-      })
+      });
     });
 
     it('should get a single article with a GET request', function(done){
@@ -53,7 +53,7 @@ describe('our api routes', function() {
           expect(err).to.eql(null);
           expect(res.body[0].title).to.eql('lorum ipsum');
           done();
-      })
+      });
     });
 
     describe('a test article', function() {
@@ -74,7 +74,7 @@ describe('our api routes', function() {
             expect(err).to.eql(null);
             expect(res.body[0].title).to.eql('lorum ipsum');
             done();
-        })
+        });
       });
 
 
