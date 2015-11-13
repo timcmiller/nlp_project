@@ -26,16 +26,13 @@ articleRouter.post('/articles', bodyParser.json(), function(req, res) {
 articleRouter.get('/articles/:id', function(req, res) {
   Article.find({_id: req.params.id}, function(err, data) {
     if(err) throw err;
-
     res.json(data);
   });
 });
 
 articleRouter.delete('/articles/:id', function(req, res) {
-
   Article.remove({_id: req.params.id}, function(err, data) {
     if(err) throw err;
-
-    res.send('Deleted ' + data.name + '.');
+    res.json({msg: 'Article deleted!'});
   });
 });

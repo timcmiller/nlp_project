@@ -2,11 +2,12 @@ var chai = require('chai');
 var chaihttp = require('chai-http');
 chai.use(chaihttp);
 var expect = chai.expect;
-require(__dirname + '/../index.js');
 
 process.env.MONGOLAB_URI = 'mongodb://localhost/nlp_test';
 
 var mongoose = require('mongoose');
+require(__dirname + '/../index.js');
+
 var Article = require(__dirname + '/../models/article.js').Article;
 var Collection = require(__dirname + '/../models/collection.js').Collection;
 
@@ -19,6 +20,7 @@ describe('our api routes', function() {
   });
 
   describe('the article routes', function() {
+    var currentArticle;
 
     it('should be able to create an article', function(done) {
       var testArticle = {title: 'lorum ipsum'};
@@ -27,39 +29,61 @@ describe('our api routes', function() {
         .send(testArticle)
         .end(function(err, res) {
           expect(err).to.eql(null);
+          currentArticle = res.body;
           expect(res.body).to.have.property('_id');
           expect(res.body.title).to.eql('lorum ipsum');
           done();
       });
     });
-    describe('tests that need something in the database', function() {
+
+    it('should get all the articles with a GET request', function(done){
+      chai.request('http://localhost:3000')
+      .get('/api/articles')
+      .end(function(err, res){
+        expect(err).to.eql(null);
+        expect(Array.isArray(res.body)).to.eql(true);
+        done();
+      })
+    });
+
+    it('should get a single article with a GET request', function(done){
+      chai.request('http://localhost:3000')
+      .get('/api/articles/' + currentArticle._id)
+      .end(function(err, res){
+          expect(err).to.eql(null);
+          expect(res.body[0].title).to.eql('lorum ipsum');
+          done();
+      })
+    });
+
+    describe('a test article', function() {
 
       beforeEach(function(done) {
-        (new Article({title: 'lorum ipsum'}))
+        (new Article({title:'lorum ipsum', wordcounts: [{word:'apple', count:5}, {word: 'banana', count: 2}]}))
         .save(function(err, data) {
           expect(err).to.eql(null);
           this.article = data;
           done();
         }.bind(this));
       });
-      it('should respond to a get request', function(done) {
-        chai.request('localhost:3000')
-          .get('/api/articles/' + this.article._id)
-          .end(function(err, res) {
-            debugger;
+
+      it('should get the created article with a GET request', function(done){
+        chai.request('http://localhost:3000')
+        .get('/api/articles/' + this.article._id)
+        .end(function(err, res){
             expect(err).to.eql(null);
-            expect(res.body).to.have.property('_id');
-            expect(res.body.title).to.eql('lorum ipsum');
+            expect(res.body[0].title).to.eql('lorum ipsum');
             done();
-        }.bind(this));
+        })
       });
 
-      it('should be able to delete a article', function(done) {
+
+      it('should be able to delete the created article', function(done) {
         chai.request('localhost:3000')
-          .delete('/articles/' + this.article._id)
+          .delete('/api/articles/' + this.article._id)
           .end(function(err, res) {
             expect(err).to.eql(null);
-            expect(res.text).to.eql('Deleted ' + res.name + '.');
+            expect(res.body.msg).to.eql('Article deleted!');
             done();
         });
       });
@@ -106,16 +130,17 @@ describe('our api routes', function() {
           .delete('/collections/' + this.collection._id)
           .end(function(err, res) {
             expect(err).to.eql(null);
-            expect(res.text).to.eql('Deleted ' + res.name + '.');
+            expect(res.text).to.eql('Deleted ' + res.title + '.');
         });
       });
     });
 
-    describe('the route to collections that returns all articles in a collection', function() {
+    describe('the route to collections that returns all articles in a collection', function(done) {
       beforeEach(function(done) {
         (new Collection({name: 'collection', article: (new Article({name: 'article'}))})).save(function(err, data) {
           expect(err).to.eql(null);
           this.collection = data;
+          done();
         }.bind(this));
       });
 
