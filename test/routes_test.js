@@ -93,14 +93,14 @@ describe('our api routes', function() {
   describe('the collection routes', function() {
 
     it('should be able to create a collection', function(done) {
-      var testCollection = {name: 'test'};
+      var testCollection = {title: 'test'};
       chai.request('localhost:3000')
         .post('/api/collections')
         .send(testCollection)
         .end(function(err, res) {
           expect(err).to.eql(null);
           expect(res.body).to.have.property('_id');
-          expect(res.body.name).to.eql('test');
+          expect(res.body.title).to.eql('test');
           //add any other properties it will have!
           done();
       });
@@ -117,7 +117,7 @@ describe('our api routes', function() {
 
       it('should respond to a get request with all the collections', function(done) {
         chai.request('localhost:3000')
-          .get('/collections')
+          .get('/api/collections')
           .end(function(err, res) {
             expect(err).to.eql(null);
             expect(Array.isArray(res.body)).to.eql(true);
@@ -127,7 +127,7 @@ describe('our api routes', function() {
 
       it('should be able to delete a collection', function() {
         chai.request('localhost:3000')
-          .delete('/collections/' + this.collection._id)
+          .delete('/api/collections/' + this.collection._id)
           .end(function(err, res) {
             expect(err).to.eql(null);
             expect(res.text).to.eql('Deleted ' + res.title + '.');
@@ -146,7 +146,7 @@ describe('our api routes', function() {
 
       it('should respond with all the articles in this collection', function(done) {
         chai.request('localhost:3000')
-          .get('/collections/' + this.collection.name)
+          .get('/api/collections/' + this.collection.name)
           .end(function(err, res) {
             expect(err).to.eql(null);
             expect(Array.isArray(res.body)).to.eql(true);
