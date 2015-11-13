@@ -7,13 +7,13 @@ require(__dirname + '/../index.js');
 process.env.MONGOLAB_URI = 'mongodb://localhost/nlp_test';
 
 var mongoose = require('mongoose');
-var Article = require(__dirname + '/../modles/articles.js');
-var Collection = require(__dirname + '/../modles/collection.js');
+var Article = require(__dirname + '/../models/article.js').Article;
+var Collection = require(__dirname + '/../models/collection.js').Collection;
 
 describe('our api routes', function() {
 
   after(function(done) {
-    mongoose.connection.db.dropDatabase(function () {
+    mongoose.connection.db.dropDatabase(function(){
       done();
     });
   });
@@ -21,22 +21,22 @@ describe('our api routes', function() {
   describe('the article routes', function() {
 
     it('should be able to create an article', function(done) {
-      var testArticle = {name: 'lorum ipsum'};
+      var testArticle = {title: 'lorum ipsum'};
       chai.request('localhost:3000')
-        .post('/api/atricles')
+        .post('/api/articles')
         .send(testArticle)
         .end(function(err, res) {
           expect(err).to.eql(null);
           expect(res.body).to.have.property('_id');
-          expect(res.body.name).to.eql('lorum ipsum');
-          //any other properties here
+          expect(res.body.title).to.eql('lorum ipsum');
           done();
       });
     });
     describe('tests that need something in the database', function() {
 
       beforeEach(function(done) {
-        (new Article({name: 'lorum ipsum'})).save(function(err, data) {
+        (new Article({title: 'lorum ipsum'}))
+        .save(function(err, data) {
           expect(err).to.eql(null);
           this.article = data;
           done();
@@ -44,13 +44,14 @@ describe('our api routes', function() {
       });
       it('should respond to a get request', function(done) {
         chai.request('localhost:3000')
-          .get('/api/articles/lorum%20ipsum')
+          .get('/api/articles/' + this.article._id)
           .end(function(err, res) {
+            debugger;
             expect(err).to.eql(null);
             expect(res.body).to.have.property('_id');
-            expect(res.body.name).to.eql('lorum ipsum');
+            expect(res.body.title).to.eql('lorum ipsum');
             done();
-        });
+        }.bind(this));
       });
 
       it('should be able to delete a article', function(done) {

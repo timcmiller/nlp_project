@@ -7,6 +7,8 @@ var frequency = require(__dirname + '/lib/frequency');
 var collectionRouter = require(__dirname + '/routes/collection_routes.js');
 var articleRouter = require(__dirname + '/routes/article_routes.js');
 
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/nlp_database');
+
 app.use('/api', collectionRouter);
 app.use('/api', articleRouter);
 
