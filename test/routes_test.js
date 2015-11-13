@@ -23,10 +23,9 @@ describe('our api routes', function() {
     var currentArticle;
 
     it('should be able to create an article', function(done) {
-      var testArticle = {title: 'lorum ipsum'};
       chai.request('localhost:3000')
         .post('/api/articles')
-        .send(testArticle)
+        .send({title: 'lorum ipsum'})
         .end(function(err, res) {
           expect(err).to.eql(null);
           currentArticle = res.body;
