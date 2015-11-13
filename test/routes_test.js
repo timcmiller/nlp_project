@@ -123,7 +123,7 @@ describe('our api routes', function() {
           .get('/collections/' + this.collection.name)
           .end(function(err, res) {
             expect(err).to.eql(null);
-            expect(res.data.articles.name).to.eql('article');
+            expect(Array.isArray(res.body)).to.eql(true);
             done();
         });
       });
