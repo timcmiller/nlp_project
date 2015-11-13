@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var frequency = require(__dirname + '/lib/frequency');
 var collectionRouter = require(__dirname + '/routes/collection_routes.js');
 var articleRouter = require(__dirname + '/routes/article_routes.js');
+var port = process.env.PORT || 3000;
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://tmiller:codefellows@ds053874.mongolab.com:53874/nlp_processing');
 
@@ -22,6 +23,6 @@ app.post('/process', bodyParser.urlencoded({extended: true}), function(req, res)
   res.send(returnJSON);
 });
 
-app.listen(3000, function(){
+app.listen(port, function(){
   console.log('server up!');
 });
