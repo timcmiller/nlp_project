@@ -4,4 +4,6 @@
 # DS_Store for mac
 .DS_Store
 
-**/db
+#database
+/db
+
