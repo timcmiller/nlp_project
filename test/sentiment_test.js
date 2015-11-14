@@ -39,4 +39,9 @@ describe('sentiment analysis', function(){
     expect(returnArticle.negTerms[0]).to.have.property('count');
     expect(returnArticle.sentiment).to.eql('Mildly Negative');
   });
+  it('the sentiment mapper should map a title parameter', function(){
+    var testString = 'a test string';
+    var returnArticle = mapSentimentToArticle(testString, 'my custom title');
+    expect(returnArticle.title).to.eql('my custom title');
+  });
 });
