@@ -1,6 +1,6 @@
 var chai = require('chai');
 var expect = chai.expect;
-var sentiment = require(__dirname + "/../lib/index.js");
+var sentiment = require(__dirname + "/../lib/sentiment_checker.js");
 var mapSentimentToArticle = require(__dirname + "/../lib/map_sentiment.js");
 var mongoose = require('mongoose');
 
