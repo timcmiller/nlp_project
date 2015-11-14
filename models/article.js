@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var collectionSchema = require(__dirname + '/collection.js').collectionSchema;
+var listSchema = require(__dirname + '/list.js').listSchema;
 
 var articleSchema = module.exports.articleSchema = mongoose.Schema({
   title: String,
@@ -10,11 +10,7 @@ var articleSchema = module.exports.articleSchema = mongoose.Schema({
   posTerms: [{word: String, count: Number}],
   negTerms: [{word: String, count: Number}],
   vNegTerms: [{word: String, count: Number}],
-  collections: [{type: Schema.Types.ObjectId, ref: 'Collection'}]
+  lists: [{type: Schema.Types.ObjectId, ref: 'List'}]
 });
 
 var Article = module.exports.Article = mongoose.model('Article', articleSchema);
-
-
-//superagent http://localhost:3000/api/articles post '{"title":"Test Article", "wordcounts": [{"word":"apple", "count":5}, {"word": "banana", "count": 2}]}'
-//{title:'lorum ipsum', wordcounts: [{word:'apple', count:5}, {word: 'banana', count: 2}]}
