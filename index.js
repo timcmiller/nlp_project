@@ -7,6 +7,7 @@ var frequency = require(__dirname + '/lib/frequency');
 var sentimentChecker = require(__dirname + '/lib/sentimentChecker.js');
 var collectionRouter = require(__dirname + '/routes/collection_routes.js');
 var articleRouter = require(__dirname + '/routes/article_routes.js');
+var Article = require(__dirname + '/models/article').Article;
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/nlp_database');
 
