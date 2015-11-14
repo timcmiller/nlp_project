@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 require(__dirname + '/../index.js');
 
 var Article = require(__dirname + '/../models/article.js').Article;
-var Collection = require(__dirname + '/../models/collection.js').Collection;
+var List = require(__dirname + '/../models/list.js').List;
 
 describe('our api routes', function() {
 
@@ -88,13 +88,13 @@ describe('our api routes', function() {
     });
   });
 
-  describe('the collection routes', function() {
+  describe('the list routes', function() {
 
-    it('should be able to create a collection', function(done) {
-      var testCollection = {title: 'test'};
+    it('should be able to create a list', function(done) {
+      var testList = {title: 'test'};
       chai.request('localhost:3000')
-        .post('/api/collections')
-        .send(testCollection)
+        .post('/api/lists')
+        .send(testList)
         .end(function(err, res) {
           expect(err).to.eql(null);
           expect(res.body).to.have.property('_id');
@@ -103,19 +103,19 @@ describe('our api routes', function() {
           done();
       });
     });
-    describe('the collection routes that need data', function() {
+    describe('the list routes that need data', function() {
 
       beforeEach(function(done) {
-        (new Collection({name: 'test'})).save(function(err, data) {
+        (new List({name: 'test'})).save(function(err, data) {
           expect(err).to.eql(null);
-          this.collection = data;
+          this.list = data;
           done();
         }.bind(this));
       });
 
-      it('should respond to a get request with all the collections', function(done) {
+      it('should respond to a get request with all the lists', function(done) {
         chai.request('localhost:3000')
-          .get('/api/collections')
+          .get('/api/lists')
           .end(function(err, res) {
             expect(err).to.eql(null);
             expect(Array.isArray(res.body)).to.eql(true);
@@ -123,9 +123,9 @@ describe('our api routes', function() {
         });
       });
 
-      it('should be able to delete a collection', function() {
+      it('should be able to delete a list', function() {
         chai.request('localhost:3000')
-          .delete('/api/collections/' + this.collection._id)
+          .delete('/api/lists/' + this.list._id)
           .end(function(err, res) {
             expect(err).to.eql(null);
             expect(res.text).to.eql('Deleted ' + res.title + '.');
@@ -133,18 +133,18 @@ describe('our api routes', function() {
       });
     });
 
-    describe('the route to collections that returns all articles in a collection', function(done) {
+    describe('the route to lists that returns all articles in a list', function(done) {
       beforeEach(function(done) {
-        (new Collection({name: 'collection', article: (new Article({name: 'article'}))})).save(function(err, data) {
+        (new List({name: 'list', article: (new Article({name: 'article'}))})).save(function(err, data) {
           expect(err).to.eql(null);
-          this.collection = data;
+          this.list = data;
           done();
         }.bind(this));
       });
 
-      it('should respond with all the articles in this collection', function(done) {
+      it('should respond with all the articles in this list', function(done) {
         chai.request('localhost:3000')
-          .get('/api/collections/' + this.collection.id)
+          .get('/api/lists/' + this.list.id)
           .end(function(err, res) {
             expect(err).to.eql(null);
             expect(Array.isArray(res.body)).to.eql(true);
