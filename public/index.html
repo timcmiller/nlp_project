@@ -21,17 +21,31 @@
           returnString += ([key] + ": " + returnObj[key] + '\n');
         }
         $(".returnString").text(returnString);
-      })
-    })
-  })
+      });
+    });
+  });
+// script for word count
+  function numberOfWords( val ){
+    return {
+      words              : val.match(/\S+/g).length,
+    };
+  }
 
-}) // end document ready
+  var $div = $('.word-count');
+
+  $('textarea').on('input', function(){
+    var count = numberOfWords( this.value );
+    $div.html("<br>Word count: "+ count.words ).fadeIn(500);
+  }); // end script for word count
+
+}); // end document ready
+
   </script>
   <style>
   body {
     font-family: 'Raleway', sans-serif;  }
   textarea {
-    margin: 60px auto 40px;
+    margin: 0px auto 40px;
     background: #f8f8f8; }
   .returnString {
     display: none }
@@ -65,6 +79,7 @@
     <div class="medium-11 large-centered columns">
       <h1><small>Welcome to Lingo Lemur</small></h1>
         <p>Our natural language processor algorithm, the Lingo Lemur helps you extract hidden sentiments behind songs and articles. (Max number of words 5000)</p>
+        <div class="word-count"></div>
         <textarea id="processText" rows="10" placeholder="Type or paste your text here..."></textarea>
         <button type="submit" class="button radius success">Process</button>
       <div class="medium-11 large-centered columns">
