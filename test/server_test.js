@@ -33,10 +33,13 @@ describe('our NLP sever', function() {
     chai.request('localhost:3000')
     .post('/process')
     .type('form')
-    .send('text=You talking to me?')
+    .send('text=Happy Birthday to You!')
     .end(function(err, res){
       expect(err).to.eql(null);
-      expect(res.text).to.eql('{"you":1,"talking":1,"to":1,"me":1}');
+      expect(res.text).to.be.an('string');
+      expect(JSON.parse(res.text).sentiment).to.eql('Mildly Positive');
+      expect(JSON.parse(res.text).posTerms).to.eql({happy: 1});
+
       done();
     });
   });

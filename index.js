@@ -4,7 +4,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var frequency = require(__dirname + '/lib/frequency');
-var sentimentChecker = require(__dirname + '/lib/sentimentChecker.js');
+var sentimentChecker = require(__dirname + '/lib/sentiment_checker.js');
 var collectionRouter = require(__dirname + '/routes/collection_routes.js');
 var articleRouter = require(__dirname + '/routes/article_routes.js');
 var Article = require(__dirname + '/models/article').Article;
@@ -22,7 +22,7 @@ app.post('/process', bodyParser.urlencoded({extended: true}), function(req, res)
   var recievedText = (req.body.text);
   var returnJSON = (sentimentChecker(recievedText));
 
-  res.send(returnJSON);
+  res.json(returnJSON);
 });
 
 app.listen(3000, function(){
