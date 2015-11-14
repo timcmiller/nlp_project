@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var frequency = require(__dirname + '/lib/frequency');
+var sentimentChecker = require(__dirname + '/lib/sentimentChecker.js');
 var collectionRouter = require(__dirname + '/routes/collection_routes.js');
 var articleRouter = require(__dirname + '/routes/article_routes.js');
 
@@ -18,7 +19,8 @@ app.get('/', function(req, res){
 
 app.post('/process', bodyParser.urlencoded({extended: true}), function(req, res){
   var recievedText = (req.body.text);
-  var returnJSON = JSON.stringify(frequency(recievedText));
+  var returnJSON = (sentimentChecker(recievedText));
+
   res.send(returnJSON);
 });
 

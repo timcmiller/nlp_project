@@ -6,27 +6,43 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css">
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <!-- app.css holds customized style -->
   <script>
-  $(document).ready(function() {
-  $(function(){
-    var processText = '';
-    var returnString = '';
-    $("button[type='submit']").click(function(){
-      $(".returnString").fadeIn(500);
-      processText = $("#processText").val();
-      $.post("/process", {text: processText}).done(function(data){
-        var returnObj = JSON.parse(data);
-        for (key in returnObj) {
-          returnString += ([key] + ": " + returnObj[key] + '\n');
-        }
-        $(".returnString").text(returnString);
-      })
-    })
-  })
+    var scriptPrint = function(obj, sentiment) {
+      if(Object.keys(obj).length === 0) return '';
+      returnText = sentiment + ':' ;
+      for (var i = 0; i < Object.keys(obj).length; i++) {
+        returnText += " " + Object.keys(obj)[i] + " appears " + obj[Object.keys(obj)[i]];
+        if(obj[Object.keys(obj)[i]] === 1) returnText += ' time.';
+        if(obj[Object.keys(obj)[i]] !== 1) returnText += ' times.';
 
-}) // end document ready
+      }
+      returnText += '<br>';
+      return returnText;
+    };
+    $(document).ready(function() {
+      $(function(){
+        var processText = '';
+        var returnString = '';
+        $("button[type='submit']").click(function(){
+          $(".returnString").fadeIn(500);
+          $(".returnString").empty();
+          processText = $("#processText").val();
+          $.post("/process", {text: processText}).done(function(data){
+            var returnObj = JSON.stringify(data);
+            returnObj = JSON.parse(returnObj);
+            $(".returnString").html(
+              '<p>The sentiment of your text is ' + returnObj.sentiment + '.<br>'
+              + 'The words that are affecting the rating are:<br>'
+              + scriptPrint(returnObj.vPosTerms, 'Very Positve Terms')
+              + scriptPrint(returnObj.posTerms, 'Positve Terms')
+              + scriptPrint(returnObj.negTerms, 'Negative Terms')
+              + scriptPrint(returnObj.vNegTerms, 'Very Negative Terms') + '</p>');
+          });
+        });
+      });
+    });
   </script>
+  <!-- app.css holds customized style -->
   <style>
   body {
     font-family: 'Raleway', sans-serif;  }
