@@ -2,6 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var listSchema = require(__dirname + '/list.js').listSchema;
 
+//Article schema stores sentiment information from our sentiment checker.
+//Use sentiment_mapper.js to map the object returned from sentiment checker to this schema.
+
 var articleSchema = module.exports.articleSchema = mongoose.Schema({
   title: String,
   sentiment: String,

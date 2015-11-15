@@ -51,7 +51,7 @@ describe('our api routes', function() {
       .get('/api/articles/' + currentArticle._id)
       .end(function(err, res){
         expect(err).to.eql(null);
-        expect(res.body[0].title).to.eql('lorum ipsum');
+        expect(res.body.title).to.eql('lorum ipsum');
         done();
       });
     });
@@ -72,7 +72,7 @@ describe('our api routes', function() {
         .get('/api/articles/' + this.article._id)
         .end(function(err, res){
           expect(err).to.eql(null);
-          expect(res.body[0].title).to.eql('lorum ipsum');
+          expect(res.body.title).to.eql('lorum ipsum');
           done();
         });
       });
@@ -177,7 +177,7 @@ describe('the list-entry routes', function(){
           });
         });
         expect(res.body).to.have.property('_id');
-      })
+      });
     });
 
     describe('a created list-entry', function(){
@@ -187,11 +187,13 @@ describe('the list-entry routes', function(){
           this.listEntry = data;
           done();
         }.bind(this));
-      })
+      });
       it('should be removed by a DELETE request', function(done){
         chai.request('localhost:3000')
-        .delete('/api/list-entries' + this.listEntry.id)
+        .delete('/api/list-entries/' + this.listEntry.id)
         .end(function (err, res){
+          expect(res.text).to.eql('Deleted list entry.');
+          //Make sure that references to Lists and articles are removed.
           Article.findOne({_id: currentArticle._id}, 'lists', function(err, article){
             if (err) throw err;
             expect(article.lists).to.not.include(currentList._id);

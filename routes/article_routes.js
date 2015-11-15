@@ -27,7 +27,7 @@ articleRouter.post('/articles', bodyParser.json(), function(req, res) {
 
 
 articleRouter.get('/articles/:id', function(req, res) {
-  Article.find({_id: req.params.id}, function(err, data) {
+  Article.findOne({_id: req.params.id}, function(err, data) {
     if(err) throw err;
     res.json(data);
   });
