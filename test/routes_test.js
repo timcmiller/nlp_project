@@ -12,6 +12,8 @@ var Article = require(__dirname + '/../models/article.js').Article;
 var List = require(__dirname + '/../models/list.js').List;
 
 describe('our api routes', function() {
+  var currentArticle;
+  var currentList;
 
   after(function(done) {
     mongoose.connection.db.dropDatabase(function(){
@@ -20,7 +22,6 @@ describe('our api routes', function() {
   });
 
   describe('the article routes', function() {
-    var currentArticle;
 
     it('should be able to create an article', function(done) {
       chai.request('localhost:3000')
@@ -97,6 +98,7 @@ describe('our api routes', function() {
         .send(testList)
         .end(function(err, res) {
           expect(err).to.eql(null);
+          currentList = res.body;
           expect(res.body).to.have.property('_id');
           expect(res.body.title).to.eql('test');
           //add any other properties it will have!
@@ -153,4 +155,35 @@ describe('our api routes', function() {
       });
     });
   });
+
+  describe('the list-entry routes', function(){
+    //This will use an article and a list created in the above tests.
+    it('should be able to create a list entry with a POST request', function(done){
+      chai.request('localhost:3000')
+      .post('/api/list-entries')
+      .send({list: currentList._id, article: currentArticle._id})
+      .end(function(err, res){
+        expect(err).to.eql(null);
+        var arrayOfListsInArticle;
+        //Expect statements below to ensure that articles and lists are updated below
+        Article.findOne({_id: currentArticle._id}, 'lists', function(err, article){
+          if (err) throw err;
+          expect(article.lists).to.include(currentList._id);
+          List.findOne({_id: currentList._id}, 'articles', function(err, list){
+            if (err) throw err;
+            expect(list.articles).to.include(currentArticle._id);
+            done();
+          });
+        });
+        expect(res.body).to.have.property('_id');
+      })
+    });
+
+    describe('a created list-entry', function(){
+      it('should do something', function(done){
+        done();
+      })
+    })
+
+  })
 });
