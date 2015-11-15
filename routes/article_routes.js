@@ -13,6 +13,11 @@ articleRouter.get('/articles', function(req, res) {
 });
 
 articleRouter.post('/articles', bodyParser.json(), function(req, res) {
+  // Add this code to save articles with sentiment. urlencoded may be needed instead of bodyparser.json()
+  // mapSentimentToArticle(recievedText).save(function(err, data) {
+  //   if (err) throw err;
+  //   console.log('Saved article!')
+  // });
   var newArticle = new Article(req.body);
   newArticle.save(function(err, data) {
     if(err) throw err;
@@ -22,7 +27,7 @@ articleRouter.post('/articles', bodyParser.json(), function(req, res) {
 
 
 articleRouter.get('/articles/:id', function(req, res) {
-  Article.find({_id: req.params.id}, function(err, data) {
+  Article.findOne({_id: req.params.id}, function(err, data) {
     if(err) throw err;
     res.json(data);
   });
