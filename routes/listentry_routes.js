@@ -6,7 +6,7 @@ var ListEntry = require(__dirname + '/../models/listentry').ListEntry;
 var listEntryRouter = module.exports = exports = express.Router();
 
 listEntryRouter.get('/list-entries/:id', function(req, res) {
-  ListEntry.find({_id: req.params.id}, function(err, listEntryData){
+  ListEntry.findOne({_id: req.params.id}, function(err, listEntryData){
       if(err) throw err;
       res.json(listEntryData);
     })
@@ -33,9 +33,16 @@ listEntryRouter.post('/list-entries', bodyParser.json(), function(req, res) {
   });
 });
 
-listEntryRouter.delete('/list-entries/:id', function(req, res) {
+listEntryRouter.delete('/list-entries', function(req, res) {
+  var currentArticle;
+  var currentList;
+  ListEntry.findOne({_id: req.params._id}, function(err, doc){
+    doc.article = currentArticle;
+    doc.list = currentList;
+  });
   ListEntry.remove({_id: req.params._id}, function(err, data) {
     if(err) throw err;
+
     res.send('Deleted ' + data.name + '.');
   });
 });
