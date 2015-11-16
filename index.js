@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var express = require('express');
 
 var app = express();
-var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
+var bodyParser = require('body-parser');
 var frequency = require(__dirname + '/lib/frequency');
 var sentimentChecker = require(__dirname + '/lib/sentiment_checker.js');
 var mapSentimentToArticle = require(__dirname + '/lib/map_sentiment.js');
