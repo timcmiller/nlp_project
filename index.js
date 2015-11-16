@@ -33,10 +33,10 @@ app.listen(3000, function(){
 });
 
 var client = new Twitter({
-  consumer_key: 'pH6RVt8KgRe7n13KT1TIT1vZY',
-  consumer_secret: 'BHIcBqmNgycc48FR0T9SU1BcqSkyulqHfBenion6MFHvHMu9Qq',
-  access_token_key: '84232321-z46I97AYAj2E168YmqJ4hUVHFkc93hcFSTqf6coeG',
-  access_token_secret: '2kKJx1t7rvN5ecmvqFSNZLLQuSnykUPfyNWbfOIKUIStq'
+  consumer_key: 'default',
+  consumer_secret: 'default',
+  access_token_key: 'default',
+  access_token_secret: 'default'
 });
 
 
