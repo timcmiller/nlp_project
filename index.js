@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var express = require('express');
 
 var app = express();
+var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var frequency = require(__dirname + '/lib/frequency');
 var sentimentChecker = require(__dirname + '/lib/sentiment_checker.js');
@@ -15,12 +16,17 @@ var port = process.env.PORT || 3000;
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://tmiller:codefellows@ds053874.mongolab.com:53874/nlp_processing');
 
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use('/api', listRouter);
 app.use('/api', articleRouter);
 app.use('/api', listEntryRouter);
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
+});
+
+app.get('/about-us', function(req, res){
+  res.sendFile(__dirname + '/public/about-us.html');
 });
 
 app.post('/process', bodyParser.urlencoded({extended: true}), function(req, res){
