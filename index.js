@@ -9,11 +9,14 @@ var mapSentimentToArticle = require(__dirname + '/lib/map_sentiment.js');
 var listRouter = require(__dirname + '/routes/list_routes.js');
 var articleRouter = require(__dirname + '/routes/article_routes.js');
 var Article = require(__dirname + '/models/article').Article;
+var twitterRouter = require(__dirname + '/routes/twitter_routes.js');
+var Twitter = require('twitter');
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/nlp_database');
 
 app.use('/api', listRouter);
 app.use('/api', articleRouter);
+// app.use(twitterRouter);
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
@@ -28,3 +31,32 @@ app.post('/process', bodyParser.urlencoded({extended: true}), function(req, res)
 app.listen(3000, function(){
   console.log('server up!');
 });
+
+var client = new Twitter({
+  consumer_key: 'pH6RVt8KgRe7n13KT1TIT1vZY',
+  consumer_secret: 'BHIcBqmNgycc48FR0T9SU1BcqSkyulqHfBenion6MFHvHMu9Qq',
+  access_token_key: '84232321-z46I97AYAj2E168YmqJ4hUVHFkc93hcFSTqf6coeG',
+  access_token_secret: '2kKJx1t7rvN5ecmvqFSNZLLQuSnykUPfyNWbfOIKUIStq'
+});
+
+
+app.get('/twitter', function(req, res, next) {
+
+  var params = {screen_name: "isabellaorgan", count: 200, include_rts: false, trim_user: true};
+  client.get('statuses/user_timeline.json', params, function(err, tweets, response) {
+    if(err) throw err;
+    res.tweets = '';
+    for(var i = 0; i < tweets.length; i++) {
+      res.tweets += tweets[i].text;
+    }
+
+    next();
+  });
+});
+
+app.get('/twitter', function(req, res) {
+  res.tweetSentiment = (sentimentChecker(res.tweets));
+  res.send(res.tweetSentiment);
+
+});
+
