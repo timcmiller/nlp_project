@@ -42,7 +42,7 @@ var client = new Twitter({
 
 app.get('/twitter', function(req, res, next) {
 
-  var params = {screen_name: "isabellaorgan", count: 200, include_rts: false, trim_user: true};
+  var params = {screen_name: "axelthetoller", count: 200, trim_user: true};
   client.get('statuses/user_timeline.json', params, function(err, tweets, response) {
     if(err) throw err;
     res.tweets = '';
