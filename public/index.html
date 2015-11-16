@@ -37,13 +37,11 @@
           $(".returnString").empty();
           processText = $("#processText").val();
           $.post("/process", {text: processText}).done(function(data){
-            var returnObj = JSON.stringify(data);
-            returnObj = JSON.parse(returnObj);
             $(".returnString").html(
-              '<p>The sentiment of your text is ' + returnObj.sentiment + '.<br>'
+              '<p>The sentiment of your text is ' + data.sentiment + '.<br>'
               + 'The words that are affecting the rating are and how many times they appear are:<br></p>'
               + '<table id="sentiment">'
-              + createTable(returnObj)
+              + createTable(data)
               + '</table>');
           });
         });
