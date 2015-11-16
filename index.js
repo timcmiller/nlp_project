@@ -21,6 +21,10 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
 
+app.get('/about-us', function(req, res){
+  res.sendFile(__dirname + '/public/about-us.html');
+});
+
 app.post('/process', bodyParser.urlencoded({extended: true}), function(req, res){
   var recievedText = (req.body.text);
   var returnJSON = (sentimentChecker(recievedText));
