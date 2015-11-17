@@ -11,11 +11,10 @@ var listRouter = require(__dirname + '/routes/list_routes.js');
 var listEntryRouter = require(__dirname + '/routes/listentry_routes.js');
 var articleRouter = require(__dirname + '/routes/article_routes.js');
 var Article = require(__dirname + '/models/article').Article;
-if(process.env.MONGOLAB_URI !== 'mongodb://localhost/nlp_test') {
-  Article.find({}, function(err, data){
-    if(data.length < 5) {require(__dirname + '/lib/population.js');}
-  });
-}
+Article.find({}, function(err, data){
+  if(data.length < 5) {require(__dirname + '/lib/population.js');}
+});
+
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/nlp_database');
 

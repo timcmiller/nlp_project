@@ -16,6 +16,8 @@ describe('our api routes', function() {
   var currentArticle;
   var currentList;
 
+  this.timeout(5000);
+
   after(function(done) {
     mongoose.connection.db.dropDatabase(function(){
       done();
