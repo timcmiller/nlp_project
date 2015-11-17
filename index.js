@@ -14,7 +14,7 @@ var Article = require(__dirname + '/models/article').Article;
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/nlp_database');
 
-app.use(favicon(__dirname + '/views/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use('/api', listRouter);
 app.use('/api', articleRouter);
 app.use('/api', listEntryRouter);
