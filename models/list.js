@@ -5,6 +5,7 @@ var articleSchema = require(__dirname + '/article.js').articleSchema;
 
 var listSchema = mongoose.Schema({
   title: String,
+  description: String,
   articles: [{type: Schema.Types.ObjectId, ref: 'Article'}]
 });
 
