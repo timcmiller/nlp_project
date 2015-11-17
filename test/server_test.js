@@ -9,7 +9,7 @@ var server = require(__dirname + '/../index.js');
 describe('our NLP sever', function() {
 
   before(function(done) {
-    fs.readFile(__dirname + '/../public/index.html', function(err, data) {
+    fs.readFile(__dirname + '/../views/index.html', function(err, data) {
       if(err) throw err;
       this.html = data.toString();
 

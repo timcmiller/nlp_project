@@ -14,17 +14,17 @@ var Article = require(__dirname + '/models/article').Article;
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/nlp_database');
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/views/favicon.ico'));
 app.use('/api', listRouter);
 app.use('/api', articleRouter);
 app.use('/api', listEntryRouter);
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 app.get('/about-us', function(req, res){
-  res.sendFile(__dirname + '/public/about-us.html');
+  res.sendFile(__dirname + '/views/about-us.html');
 });
 
 app.post('/process', bodyParser.urlencoded({extended: true}), function(req, res){
