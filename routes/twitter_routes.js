@@ -1,33 +1,54 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var Twitter = require('twitter');
+var sentimentChecker = require(__dirname + '/../lib/sentiment_checker.js');
 
 var twitterRouter = module.exports = exports = express.Router();
 
 var client = new Twitter({
-  consumer_key: 'pH6RVt8KgRe7n13KT1TIT1vZY',
-  consumer_secret: 'BHIcBqmNgycc48FR0T9SU1BcqSkyulqHfBenion6MFHvHMu9Qq',
-  access_token_key: '84232321-z46I97AYAj2E168YmqJ4hUVHFkc93hcFSTqf6coeG',
-  access_token_secret: '2kKJx1t7rvN5ecmvqFSNZLLQuSnykUPfyNWbfOIKUIStq'
+  consumer_key: 'xxx',
+  consumer_secret: 'xxx',
+  access_token_key: 'xxx-xxx',
+  access_token_secret: 'xxx'
 });
 
 
-twitterRouter.get('/twitter', function(req, res, next) {
-  debugger;
-  var params = {sreen_name: "TimCMiller"};
+twitterRouter.get('/twitter/timeline', function(req, res, next) {
+
+  var params = {screen_name: "timcmiller", count: 200, trim_user: true};
   client.get('statuses/user_timeline.json', params, function(err, tweets, response) {
     if(err) throw err;
-    res.response = '';
-    tweets += res.response;
-    res.response = JSON.parse(res.response);
-    debugger;
+    res.tweets = '';
+    for(var i = 0; i < tweets.length; i++) {
+      res.tweets += tweets[i].text;
+    }
+
     next();
   });
 });
 
-twitterRouter.get('/twitter', function(req, res) {
-  debugger;
-  res.json(res.tweets);
+twitterRouter.get('/twitter/timeline', function(req, res) {
+  res.tweetSentiment = (sentimentChecker(res.tweets));
+  res.send(res.tweetSentiment);
+
+});
+
+twitterRouter.get('/twitter/hashtag', function(req, res, next) {
+  var params = {q: "#parisattacks", count: 100};
+  client.get('search/tweets.json', params, function(err, tweets, response) {
+    if(err) throw err;
+
+    res.tweets = '';
+    for(var i = 0; i < tweets.statuses.length; i++) {
+      res.tweets += tweets.statuses[i].text;
+    }
+
+    next();
+  });
+});
+
+twitterRouter.get('/twitter/hashtag', function(req, res) {
+  res.tweetSentiment = (sentimentChecker(res.tweets));
+  res.send(res.tweetSentiment);
 
 });
 
