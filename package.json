@@ -31,7 +31,8 @@
     "express": "^4.13.3",
     "lodash": "^3.10.1",
     "mongoose": "^4.2.5",
-    "twitter": "^1.2.5"
+    "twitter": "^1.2.5",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "chai": "^3.4.1",
