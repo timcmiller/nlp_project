@@ -5,10 +5,10 @@ var sentimentChecker = require(__dirname + '/../lib/sentiment_checker.js');
 var twitterRouter = module.exports = exports = express.Router();
 
 var client = new Twitter({
-  consumer_key: 'xxx',
-  consumer_secret: 'xxx',
-  access_token_key: 'xxx',
-  access_token_secret: 'xxx'
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
 
