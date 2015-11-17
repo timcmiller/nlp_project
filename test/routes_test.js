@@ -90,6 +90,42 @@ describe('our api routes', function() {
     });
 });
 
+describe('the twitter routes', function() {
+
+  it('should return sentiment anaylasis of a timelines tweets', function(done) {
+    chai.request('localhost:3000')
+      .post('/api/twitter/timeline')
+      .send({text: 'timcmiller'})
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        expect(res.sentimentValue).to.be.a('number');
+        expect(res.sentiment).to.be.a('string');
+        expect(res).to.have.property('negTerms');
+        expect(res).to.have.property('vNegTerms');
+        expect(res).to.have.property('posTerms');
+        expect(res).to.have.property('vPosTerms');
+      });
+
+  });
+
+  it('should be return sentiment anaylasis of a search of tweets', function(done) {
+    chai.request('localhost:3000')
+      .post('/api/twitter/hashtags')
+      .send({text: '#test'})
+      .end(function(err, res) {
+        console.log(res);
+        expect(err).to.eql(null);
+        expect(res.text.sentimentValue).to.be.a('number');
+        expect(res.text.sentiment).to.be.a('string');
+        expect(res).to.have.property('negTerms');
+        expect(res).to.have.property('vNegTerms');
+        expect(res).to.have.property('posTerms');
+        expect(res).to.have.property('vPosTerms');
+      });
+
+  });
+});
+
 describe('the list routes', function() {
 
   it('should be able to create a list', function(done) {

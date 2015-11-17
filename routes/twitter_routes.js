@@ -1,5 +1,6 @@
 var express = require('express');
 var Twitter = require('twitter');
+var bodyParser = require('body-parser');
 var sentimentChecker = require(__dirname + '/../lib/sentiment_checker.js');
 
 var twitterRouter = module.exports = exports = express.Router();
@@ -12,9 +13,9 @@ var client = new Twitter({
 });
 
 
-twitterRouter.get('/twitter/timeline', function(req, res, next) {
-
-  var params = {screen_name: "1redtulip", count: 200, trim_user: true};
+twitterRouter.post('/twitter/timeline', bodyParser.json(), function(req, res, next) {
+  console.log(req.body);
+  var params = {screen_name: req.body.text, count: 200, trim_user: true};
   client.get('statuses/user_timeline.json', params, function(err, tweets, response) {
     if(err) throw err;
     res.tweets = '';
@@ -26,14 +27,14 @@ twitterRouter.get('/twitter/timeline', function(req, res, next) {
   });
 });
 
-twitterRouter.get('/twitter/timeline', function(req, res) {
+twitterRouter.post('/twitter/timeline', function(req, res) {
   res.tweetSentiment = (sentimentChecker(res.tweets));
   res.send(res.tweetSentiment);
 
 });
 
-twitterRouter.get('/twitter/hashtag', function(req, res, next) {
-  var params = {q: "#prayforparis", count: 100};
+twitterRouter.post('/twitter/hashtag', bodyParser.json(), function(req, res, next) {
+  var params = {q: req.body.text, count: 100};
   client.get('search/tweets.json', params, function(err, tweets, response) {
     if(err) throw err;
 
@@ -46,7 +47,7 @@ twitterRouter.get('/twitter/hashtag', function(req, res, next) {
   });
 });
 
-twitterRouter.get('/twitter/hashtag', function(req, res) {
+twitterRouter.post('/twitter/hashtag', function(req, res) {
   res.tweetSentiment = (sentimentChecker(res.tweets));
   res.send(res.tweetSentiment);
 
