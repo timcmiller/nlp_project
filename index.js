@@ -20,11 +20,11 @@ app.use('/api', articleRouter);
 app.use('/api', listEntryRouter);
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 app.get('/about-us', function(req, res){
-  res.sendFile(__dirname + '/public/about-us.html');
+  res.sendFile(__dirname + '/views/about-us.html');
 });
 
 app.post('/process', bodyParser.urlencoded({extended: true}), function(req, res){
