@@ -7,14 +7,14 @@ var twitterRouter = module.exports = exports = express.Router();
 var client = new Twitter({
   consumer_key: 'xxx',
   consumer_secret: 'xxx',
-  access_token_key: 'xxx-xxx',
+  access_token_key: 'xxx',
   access_token_secret: 'xxx'
 });
 
 
 twitterRouter.get('/twitter/timeline', function(req, res, next) {
 
-  var params = {screen_name: "timcmiller", count: 200, trim_user: true};
+  var params = {screen_name: "1redtulip", count: 200, trim_user: true};
   client.get('statuses/user_timeline.json', params, function(err, tweets, response) {
     if(err) throw err;
     res.tweets = '';
@@ -33,7 +33,7 @@ twitterRouter.get('/twitter/timeline', function(req, res) {
 });
 
 twitterRouter.get('/twitter/hashtag', function(req, res, next) {
-  var params = {q: "#parisattacks", count: 100};
+  var params = {q: "#prayforparis", count: 100};
   client.get('search/tweets.json', params, function(err, tweets, response) {
     if(err) throw err;
 
