@@ -27,6 +27,8 @@ app.get('/about-us', function(req, res){
   res.sendFile(__dirname + '/views/about-us.html');
 });
 
+app.use('/public', express.static(__dirname + '/public'));
+
 app.get('/lists', function(req, res){
   res.sendFile(__dirname + '/views/lists.html');
 });
