@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lingo Lemur</title>
+  <title>Lists of Texts Analyzed for Sentiment | Lingo Lemur</title>
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css">
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script>
+    $(document).ready(function() {
     var createTable = function(obj) {
       var maxLength = Math.max(Object.keys(obj.vNegTerms).length, Object.keys(obj.negTerms).length, Object.keys(obj.posTerms).length, Object.keys(obj.vPosTerms).length);
       if(maxLength > 4) maxLength = 4;
@@ -29,23 +30,26 @@
       returnText = returnText.replace(/undefined/g, " ");
       return returnText;
     };
-    $(document).ready(function() {
-      $(function(){
-        var processText = '';
-        var returnString = '';
-        $("button[type='submit']").click(function(){
-          $(".returnString").fadeIn(500);
-          $(".returnString").empty();
-          processText = $("#processText").val();
-          $.post("/process", {text: processText}).done(function(data){
-            $(".returnString").html(
-              '<p>The sentiment of your text is ' + data.sentiment + '.<br>'
-              + 'The words that are affecting the rating are and how many times they appear are:<br></p>'
-              + '<table id="sentiment">'
-              + createTable(data)
-              + '</table>');
-          });
-        });
+      var path = window.location.pathname;
+      var params = path.substring(path.lastIndexOf('/') + 1);
+      $.get("/api/lists/" + params, function(list){
+        console.log(list); ///list-articles/:id
+        console.log(list.title);
+        document.title = list.title;
+        $("h1 small").text(list.title);
+        $("#list-description").text(list.description);
+      });
+     $.get("/api/list-articles/" + params, function(articles){
+        console.log(articles);
+        for(a in articles){
+          var article = articles[a];
+          console.log(article);
+          $("#returnlist").append("<p>" + article.title +"</p><p>The sentiment of this text is " + article.sentiment + "<span class='rating'> (" + article.sentimentValue + ")</span>.<br>"
+          + "The words that are affecting the rating are and how many times they appear are:<br>"
+          + '<table id="sentiment">'
+          + createTable(article)
+          + '</table>' + "</p>");
+        }
       });
     });
   </script>
@@ -84,6 +88,7 @@
     <!-- Left Nav Section -->
     <ul class="left">
       <li><a href="/about-us">About Us</a></li>
+      <li><a href="/lists">Analysis Examples</a></li>
     </ul>
     </section>
   </nav>
@@ -91,13 +96,12 @@
 
   <div class="row">
     <div class="medium-11 large-centered columns">
-      <h1><small>Welcome to Lingo Lemur</small></h1>
-        <p>Our natural language processor algorithm, the Lingo Lemur helps you extract hidden sentiments behind songs and articles. (Max number of words 5000)</p>
-        <div class="word-count"></div>
-        <textarea id="processText" rows="10" placeholder="Type or paste your text here..."></textarea>
-        <button type="submit" class="button radius success">Process</button>
+      <h1><small>This is the list title</small></h1>
+        <p id="list-description">This is where the description of the list goes.</p>
+        <p>This list is organized from most positive to most negative. Each analyized text is rated on a scale of 4 (most positive) to -4 (most negative).</p>
+        <div id="returnlist"></div>
       <div class="medium-11 large-centered columns">
-        <p class="returnString panel callout radius"></p>
+        <p id="returnString" class="returnString panel callout radius"></p>
       </div>
     </div>
   </div>
