@@ -128,6 +128,15 @@ describe('the list routes', function() {
       });
     });
 
+    it('should be able to get a single list', function(){
+      chai.request('localhost:3000')
+      .get('/api/lists/' + this.list._id)
+      .end(function(err, res){
+        expect(err).to.eql(null);
+        expect(res.body.name).to.eql('test');
+      });
+    });
+
     it('should be able to delete a list', function() {
       chai.request('localhost:3000')
       .delete('/api/lists/' + this.list._id)
