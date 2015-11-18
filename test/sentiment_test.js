@@ -58,5 +58,5 @@ describe('sentiment analysis', function(){
       expect(reversed.negTerms).to.have.property('abandon');
       expect(reversed.negTerms).to.have.property('disjointed');
       expect(reversed.sentiment).to.eql('Mildly Negative');
-  })
+  });
 });

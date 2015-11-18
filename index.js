@@ -44,9 +44,6 @@ app.get('/lists/:id', function(req, res){
 app.post('/process', bodyParser.urlencoded({extended: true}), function(req, res){
   var recievedText = (req.body.text);
   var returnJSON = (sentimentChecker(recievedText));
-  // mapSentimentToArticle(recievedText).save(function(err){
-  //   console.log('Saved!')
-  // })
   res.json(returnJSON);
 });
 
