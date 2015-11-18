@@ -7,6 +7,7 @@ var listSchema = require(__dirname + '/list.js').listSchema;
 
 var articleSchema = module.exports.articleSchema = mongoose.Schema({
   title: String,
+  url: String,
   sentiment: String,
   sentimentValue: Number,
   vPosTerms: [{word: String, count: Number}],
