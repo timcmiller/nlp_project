@@ -2,6 +2,7 @@ var chai = require('chai');
 var expect = chai.expect;
 var sentiment = require(__dirname + "/../lib/sentiment_checker.js");
 var mapSentimentToArticle = require(__dirname + "/../lib/map_sentiment.js");
+var mapArticleToSentiment = require(__dirname + "/../lib/reverse_map_sentiment.js");
 var mongoose = require('mongoose');
 
 process.env.MONGOLAB_URI = 'mongodb://localhost/nlp_test';
@@ -44,4 +45,18 @@ describe('sentiment analysis', function(){
     var returnArticle = mapSentimentToArticle(testString, 'my custom title');
     expect(returnArticle.title).to.eql('my custom title');
   });
+  it('the reverse sentiment mapper should return a simplified object', function(){
+      var testString = 'abandon, disjointed';
+      var articleObj = mapSentimentToArticle(testString);
+      var reversed = mapArticleToSentiment(articleObj);
+      expect(reversed).to.be.an('object');
+      expect(reversed.sentimentValue).to.eql(-2);
+      expect(reversed).to.have.property('negTerms');
+      expect(reversed).to.have.property('vNegTerms');
+      expect(reversed).to.have.property('posTerms');
+      expect(reversed).to.have.property('vPosTerms');
+      expect(reversed.negTerms).to.have.property('abandon');
+      expect(reversed.negTerms).to.have.property('disjointed');
+      expect(reversed.sentiment).to.eql('Mildly Negative');
+  })
 });

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lists of Texts Analyzed for Sentiment | Lingo Lemur</title>
+  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+    var createTable = function(obj) {
+      var maxLength = Math.max(Object.keys(obj.vNegTerms).length, Object.keys(obj.negTerms).length, Object.keys(obj.posTerms).length, Object.keys(obj.vPosTerms).length);
+      if(maxLength > 4) maxLength = 4;
+      returnText = '<tr><th colspan="2">' + 'Very Positve Terms' + '</th>'
+      + '<th colspan="2">' + 'Positve Terms' + '</th>'
+      + '<th colspan="2">' + 'Negative Terms' + '</th>'
+      + '<th colspan="2">' + 'Very Negative Terms' + '</th>'
+      + '<tr>';
+      for (var i = 0; i < maxLength; i++) {
+        returnText += "<tr><td> " + Object.keys(obj.vPosTerms)[i] + "</td>"
+        + "<td>" + obj.vPosTerms[Object.keys(obj.vPosTerms)[i]] + '</td>'
+        + "<td>" + Object.keys(obj.posTerms)[i] + "</td>"
+        + "<td>" + obj.posTerms[Object.keys(obj.posTerms)[i]] + '</td>'
+        + "<td>" + Object.keys(obj.negTerms)[i] + "</td>"
+        + "<td>" + obj.negTerms[Object.keys(obj.negTerms)[i]] + '</td>'
+        + '<td>' + Object.keys(obj.vNegTerms)[i] + "</td>"
+        + "<td>" + obj.vNegTerms[Object.keys(obj.vNegTerms)[i]] + '</td>'
+        + '</tr>';
+      }
+      returnText = returnText.replace(/undefined/g, " ");
+      return returnText;
+    };
+      var path = window.location.pathname;
+      var params = path.substring(path.lastIndexOf('/') + 1);
+      $.get("/api/lists/" + params, function(list){
+        console.log(list); ///list-articles/:id
+        console.log(list.title);
+        document.title = list.title;
+        $("h1 small").text(list.title);
+        $("#list-description").text(list.description);
+      });
+     $.get("/api/list-articles/" + params, function(articles){
+        console.log(articles);
+        for(a in articles){
+          var article = articles[a];
+          console.log(article);
+          $("#returnlist").append("<p>" + article.title +"</p><p>The sentiment of this text is " + article.sentiment + "<span class='rating'> (" + article.sentimentValue + ")</span>.<br>"
+          + "The words that are affecting the rating are and how many times they appear are:<br>"
+          + '<table id="sentiment">'
+          + createTable(article)
+          + '</table>' + "</p>");
+        }
+      });
+    });
+  </script>
+  <!-- app.css holds customized style -->
+  <style>
+  body {
+    font-family: 'Raleway', sans-serif;  }
+  textarea {
+    margin: 0px auto 40px;
+    background: #f8f8f8; }
+  .returnString {
+    display: none }
+  img.homepage-lemur {
+    border-radius: 50%;
+    border: 1px solid #333;
+    margin: 10px; }
+  </style>
+</head>
+
+<body>
+<!-- top nav -->
+  <nav class="top-bar" data-topbar role="navigation">
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="/">Lingo Lemur</a></h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="/"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+    <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="active"><a href="#">Sign Up</a></li>
+      </ul>
+
+    <!-- Left Nav Section -->
+    <ul class="left">
+      <li><a href="/about-us">About Us</a></li>
+    </ul>
+    </section>
+  </nav>
+<!-- end top nav -->
+
+  <div class="row">
+    <div class="medium-11 large-centered columns">
+      <h1><small>This is the list title</small></h1>
+        <p id="list-description">This is where the description of the list goes.</p>
+        <p>This list is organized from most positive to most negative. Each analyized text is rated on a scale of 4 (most positive) to -4 (most negative).</p>
+        <div id="returnlist"></div>
+      <div class="medium-11 large-centered columns">
+        <p id="returnString" class="returnString panel callout radius"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
+</body>
+</html>

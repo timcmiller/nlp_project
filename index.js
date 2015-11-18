@@ -31,13 +31,16 @@ app.get('/lists', function(req, res){
   res.sendFile(__dirname + '/views/lists.html');
 });
 
-app.get('/lists/:title', function(req, res){
+app.get('/lists/:id', function(req, res){
   res.sendFile(__dirname + '/views/list.html');
 })
 
 app.post('/process', bodyParser.urlencoded({extended: true}), function(req, res){
   var recievedText = (req.body.text);
   var returnJSON = (sentimentChecker(recievedText));
+  // mapSentimentToArticle(recievedText).save(function(err){
+  //   console.log('Saved!')
+  // })
   res.json(returnJSON);
 });
 
