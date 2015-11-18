@@ -99,6 +99,7 @@ describe('the twitter routes', function() {
       .post('/api/twitter/timeline')
       .send({text: 'twitter'})
       .end(function(err, res) {
+        console.log(err);
         expect(err).to.not.eql(404);
         done();
       });
