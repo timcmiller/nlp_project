@@ -37,7 +37,7 @@ app.get('/lists', function(req, res){
   res.sendFile(__dirname + '/views/lists.html');
 });
 
-app.get('/lists/:title', function(req, res){
+app.get('/lists/:id', function(req, res){
   res.sendFile(__dirname + '/views/list.html');
 });
 
