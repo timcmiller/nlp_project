@@ -18,7 +18,6 @@ twitterRouter.post('/twitter/timeline', bodyParser.urlencoded({extended: true}),
   client.get('statuses/user_timeline.json', params, function(err, tweets, response) {
     if(err) console.log(err);
     console.log(tweets);
-    return tweets;
     res.tweets = '';
     for(var i = 0; i < tweets.length; i++) {
       res.tweets += tweets[i].text;
