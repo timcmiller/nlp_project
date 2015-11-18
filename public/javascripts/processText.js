@@ -28,21 +28,23 @@ $(document).ready(function() {
   }); // end switch botton
 
   $(function(){
-    var processText = '';
-    var returnString = '';
-    $("button[type='submit']").click(function(){
-      $(".returnString").fadeIn(500);
-      $(".returnString").empty();
-      processText = $("#processText").val();
-      $.post("/process", {text: processText}).done(function(data){
-        $(".returnString").html(
-          '<p>The sentiment of your text is ' + data.sentiment + '.<br>'
-          + 'The words that are affecting the rating are and how many times they appear are:<br></p>'
-          + '<table id="sentiment">'
-          + createTable(data)
-          + '</table>');
+    if($('#hashTag').is(':checked') || $("#userHandle").is(":checked")) {
+      var processText = '';
+      var returnString = '';
+      $("button[type='submit']").click(function(){
+        $(".returnString").fadeIn(500);
+        $(".returnString").empty();
+        processText = $("#processText").val();
+        $.post("/process", {text: processText}).done(function(data){
+          $(".returnString").html(
+            '<p>The sentiment of your text is ' + data.sentiment + '.<br>'
+            + 'The words that are affecting the rating are and how many times they appear are:<br></p>'
+            + '<table id="sentiment">'
+            + createTable(data)
+            + '</table>');
+        });
       });
-    });
+    }
   });
 
   $(function(){
