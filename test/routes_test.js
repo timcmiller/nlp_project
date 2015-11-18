@@ -94,18 +94,6 @@ describe('our api routes', function() {
 
 describe('the twitter routes', function() {
 
-  it('should return sentiment anaylasis of a timelines tweets', function(done) {
-    chai.request('localhost:3000')
-      .post('/api/twitter/timeline')
-      .send({text: 'twitter'})
-      .end(function(err, res) {
-        console.log(err);
-        expect(err).to.not.eql(404);
-        done();
-      });
-
-  });
-
   it('twitter search api should return an object', function(done) {
     chai.request('localhost:3000')
       .post('/api/twitter/hashtags')
