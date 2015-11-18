@@ -43,4 +43,12 @@ describe('our NLP sever', function() {
       done();
     });
   });
+  it('should give a 404 error with a non-existing endpoint', function(done){
+    chai.request('localhost:3000')
+    .get('/sosorrymrlemur')
+    .end(function(err, res){
+      expect(res.status).to.eql(404);
+      done();
+    });
+  });
 });

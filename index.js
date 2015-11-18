@@ -49,6 +49,11 @@ app.post('/process', bodyParser.urlencoded({extended: true}), function(req, res)
   res.json(returnJSON);
 });
 
+app.get('*', function(req, res){
+  res.status(404);
+  res.sendFile(__dirname + '/views/404.html');
+});
+
 app.listen(3000, function(){
   console.log('server up!');
 });
