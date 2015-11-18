@@ -7,7 +7,7 @@ var listEntryRouter = module.exports = exports = express.Router();
 
 //Currently no need for list entry GET or PUT requests.
 
-listEntryRouter.post('/list-entries', bodyParser.json(), function(req, res) {
+listEntryRouter.post('/list-entries', eatAuth, bodyParser.json(), function(req, res) {
   var newListEntry = new ListEntry(req.body);
   Article.findByIdAndUpdate(newListEntry.article, {$push: {"lists": newListEntry.list}}, function(err, model){
     if (err) throw err;
@@ -21,7 +21,7 @@ listEntryRouter.post('/list-entries', bodyParser.json(), function(req, res) {
   });
 });
 
-listEntryRouter.delete('/list-entries/:id', function(req, res) {
+listEntryRouter.delete('/list-entries/:id', eatAuth, function(req, res) {
   ListEntry.findOne({_id: req.params.id}, function(err, doc){
   Article.update({_id: doc.article}, {$pull: {lists: doc.list}}, function(err, model){
     if (err) throw err;

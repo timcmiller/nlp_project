@@ -34,7 +34,7 @@ articleRouter.get('/articles/:id', function(req, res) {
   });
 });
 
-articleRouter.delete('/articles/:id', function(req, res) {
+articleRouter.delete('/articles/:id', eatAuth, function(req, res) {
   Article.remove({_id: req.params.id}, function(err, data) {
     if(err) throw err;
     res.json({msg: 'Article deleted!'});

@@ -19,7 +19,7 @@ listRouter.get('/lists', function(req, res) {
   });
 });
 
-listRouter.post('/lists', bodyParser.json(), function(req, res) {
+listRouter.post('/lists', eatAuth, bodyParser.json(), function(req, res) {
   var newList = new List(req.body);
 
   newList.save(function(err, data) {
@@ -29,7 +29,7 @@ listRouter.post('/lists', bodyParser.json(), function(req, res) {
   });
 });
 
-listRouter.delete('/lists/:id', function(req, res) {
+listRouter.delete('/lists/:id', eatAuth, function(req, res) {
 
   List.remove({_id: req.params._id}, function(err, data) {
     if(err) throw err;
