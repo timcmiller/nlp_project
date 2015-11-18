@@ -13,6 +13,10 @@ var articleRouter = require(__dirname + '/routes/article_routes.js');
 var Article = require(__dirname + '/models/article').Article;
 var twitterRouter = require(__dirname + '/routes/twitter_routes.js');
 
+Article.find({}, function(err, data){
+  if(data.length < 5) {require(__dirname + '/lib/population.js');}
+});
+
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/nlp_database');
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
