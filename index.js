@@ -14,7 +14,7 @@ var Article = require(__dirname + '/models/article').Article;
 
 var port = process.env.PORT || 3000;
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://tmiller:codefellows@ds053874.mongolab.com:53874/nlp_processing');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/nlp_database');
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use('/api', listRouter);
