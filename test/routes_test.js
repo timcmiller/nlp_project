@@ -16,6 +16,8 @@ describe('our api routes', function() {
   var currentArticle;
   var currentList;
 
+  this.timeout(5000);
+
   after(function(done) {
     mongoose.connection.db.dropDatabase(function(){
       done();
@@ -95,32 +97,29 @@ describe('the twitter routes', function() {
   it('should return sentiment anaylasis of a timelines tweets', function(done) {
     chai.request('localhost:3000')
       .post('/api/twitter/timeline')
-      .send({text: 'timcmiller'})
+      .send({text: 'twitter'})
       .end(function(err, res) {
+        res = JSON.parse(res.text);
         expect(err).to.eql(null);
-        expect(res.sentimentValue).to.be.a('number');
         expect(res.sentiment).to.be.a('string');
+        expect(res.sentimentValue).to.be.a('number');
+        expect(res).to.have.property('vPosTerms');
+        expect(res).to.have.property('posTerms');
         expect(res).to.have.property('negTerms');
         expect(res).to.have.property('vNegTerms');
-        expect(res).to.have.property('posTerms');
-        expect(res).to.have.property('vPosTerms');
+        done();
       });
 
   });
 
-  it('should be return sentiment anaylasis of a search of tweets', function(done) {
+  it('twitter search api should return an object', function(done) {
     chai.request('localhost:3000')
       .post('/api/twitter/hashtags')
-      .send({text: '#test'})
+      .send({text: 'twitter'})
       .end(function(err, res) {
-        console.log(res);
         expect(err).to.eql(null);
-        expect(res.text.sentimentValue).to.be.a('number');
-        expect(res.text.sentiment).to.be.a('string');
-        expect(res).to.have.property('negTerms');
-        expect(res).to.have.property('vNegTerms');
-        expect(res).to.have.property('posTerms');
-        expect(res).to.have.property('vPosTerms');
+        expect(res).to.be.an('object');
+        done();
       });
 
   });

@@ -14,8 +14,8 @@ var client = new Twitter({
 
 
 twitterRouter.post('/twitter/timeline', bodyParser.json(), function(req, res, next) {
-  console.log(req.body);
   var params = {screen_name: req.body.text, count: 200, trim_user: true};
+
   client.get('statuses/user_timeline.json', params, function(err, tweets, response) {
     if(err) throw err;
     res.tweets = '';
@@ -37,7 +37,6 @@ twitterRouter.post('/twitter/hashtag', bodyParser.json(), function(req, res, nex
   var params = {q: req.body.text, count: 100};
   client.get('search/tweets.json', params, function(err, tweets, response) {
     if(err) throw err;
-
     res.tweets = '';
     for(var i = 0; i < tweets.statuses.length; i++) {
       res.tweets += tweets.statuses[i].text;
