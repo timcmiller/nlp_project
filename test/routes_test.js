@@ -100,7 +100,6 @@ describe('the twitter routes', function() {
       .send({text: 'twitter'})
       .end(function(err, res) {
         expect(err).to.eql(null);
-        expect(res).to.be.an('object');
         done();
       });
 
