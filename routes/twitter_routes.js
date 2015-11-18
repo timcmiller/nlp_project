@@ -13,9 +13,8 @@ var client = new Twitter({
 });
 
 
-twitterRouter.post('/twitter/timeline', bodyParser.json(), function(req, res, next) {
+twitterRouter.post('/twitter/timeline', bodyParser.urlencoded({extended: true}), function(req, res, next) {
   var params = {screen_name: req.body.text, count: 200, trim_user: true};
-
   client.get('statuses/user_timeline.json', params, function(err, tweets, response) {
     if(err) throw err;
     res.tweets = '';
@@ -33,7 +32,7 @@ twitterRouter.post('/twitter/timeline', function(req, res) {
 
 });
 
-twitterRouter.post('/twitter/hashtag', bodyParser.json(), function(req, res, next) {
+twitterRouter.post('/twitter/hashtag', bodyParser.urlencoded({extended: true}), function(req, res, next) {
   var params = {q: req.body.text, count: 100};
   client.get('search/tweets.json', params, function(err, tweets, response) {
     if(err) throw err;

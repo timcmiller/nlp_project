@@ -44,10 +44,6 @@ $(document).ready(function() {
       });
     });
   });
-    // toggle between twitter and text input field
-  $('.switch-button').click(function() {
-    $('.process-text-field').toggle('slow');
-  }); // end switch botton
 
   $(function(){
     var processText = '';
@@ -56,12 +52,14 @@ $(document).ready(function() {
       $(".returnTweet").fadeIn(500);
       $(".returnTweet").empty();
       if($('#hashTag').is(':checked')) {
-        processText = $("#hashTag").val();
+        processText = $("#radioSelection").val();
+        path = "/api/twitter/hashtag";
       }
       if($("#userHandle").is(":checked")) {
-        processText = $("#userHandle").val();
+        processText = $("#radioSelection").val();
+        path = "/api/twitter/timeline";
       }
-      $.post("/process", {text: processText}).done(function(data){
+      $.post(path, {text: processText}).done(function(data){
         $(".returnTweet").html(
           '<p>The sentiment of the tweets is ' + data.sentiment + '.<br>'
           + 'The words that are affecting the rating are and how many times they appear are:<br></p>'
