@@ -21,6 +21,12 @@
       return returnText;
     };
     $(document).ready(function() {
+
+      // toggle between twitter and text input field
+      $('.switch-button').click(function() {
+        $('.process-text-field').toggle('slow');
+      }); // end switch botton
+
       $(function(){
         var processText = '';
         var returnString = '';
