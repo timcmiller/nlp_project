@@ -11,34 +11,32 @@
 </head>
 
 <body>
-<!-- top nav -->
-  <nav class="top-bar" data-topbar role="navigation">
-    <ul class="title-area">
-      <li class="name">
-        <h1><a href="/">Lingo Lemur</a></h1>
-      </li>
-      <li class="toggle-topbar menu-icon"><a href="/"><span>Menu</span></a></li>
-    </ul>
-
-    <section class="top-bar-section">
-    <!-- Right Nav Section -->
-      <ul class="right">
-        <li class="active"><a href="#">Sign Up</a></li>
+  <!-- begin top nav -->
+  <div class="contain-to-grid sticky">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="/">Lingo Lemur</a></h1>
+        </li>
+         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+        <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
       </ul>
 
-    <!-- Left Nav Section -->
-    <ul class="left">
-      <li><a href="/about-us">About Us</a></li>
-      <li><a href="/lists">Analysis Examples</a></li>
-    </ul>
-    </section>
-  </nav>
-<!-- end top nav -->
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="right">
+          <li class="active"><a href="/lists">Analysis Examples</a></li>
+          <li><a href="/about-us">About Us</a></li>
+        </ul>
+      </section>
+    </nav>
+  </div>
+  <!-- end top nav -->
 
   <div class="row">
     <div class="medium-11 large-centered columns">
       <h1><small>Welcome to Lingo Lemur</small></h1>
-        <p>Our natural language processor algorithm, the Lingo Lemur helps you extract hidden sentiments behind songs, articles and tweets.</p>
+        <p>Lemurs make more use of visual and vocal communication than other nocturnal prosimians, and they’re also one of the more social strepsirrhine primates. At Lingo Lemur, our algorithms call upon their powers of communication to show whether a text is generally negative, neutral or positive.</p>
 
       <!-- begin article text field -->
       <div class="process-text-field">
@@ -79,8 +77,12 @@
   </div>
 
   <!-- scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation/foundation.topbar.js"></script>
   <script src='../public/javascripts/processText.js' type='text/javascript'></script>
+  <script>
+    $(document).foundation();
+  </script>
 </body>
 </html>

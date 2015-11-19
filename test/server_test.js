@@ -37,9 +37,17 @@ describe('our NLP sever', function() {
     .end(function(err, res){
       expect(err).to.eql(null);
       expect(res.text).to.be.an('string');
-      expect(JSON.parse(res.text).sentiment).to.eql('Mildly Positive');
+      expect(JSON.parse(res.text).sentiment).to.eql('Positive');
       expect(JSON.parse(res.text).posTerms).to.eql({happy: 1});
 
+      done();
+    });
+  });
+  it('should give a 404 error with a non-existing endpoint', function(done){
+    chai.request('localhost:3000')
+    .get('/sosorrymrlemur')
+    .end(function(err, res){
+      expect(res.status).to.eql(404);
       done();
     });
   });
