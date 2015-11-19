@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var path = require('path');
-var sentimentChecker = require(__dirname + '/../lib/sentiment_checker.js');
+var sentimentChecker = require(__dirname + '/../lib/sentiment/sentiment_checker.js');
 
 var staticRouter = module.exports = exports = express.Router();
 
@@ -22,6 +22,7 @@ staticRouter.get('/lists/:id', function(req, res){
 
 staticRouter.post('/process', bodyParser.urlencoded({extended: true}), function(req, res){
   var recievedText = (req.body.text);
+  console.log(req.body.language);
   var returnJSON = (sentimentChecker(recievedText, req.body.language));
   res.json(returnJSON);
 });
