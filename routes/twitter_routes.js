@@ -1,7 +1,7 @@
 var express = require('express');
 var Twitter = require('twitter');
 var bodyParser = require('body-parser');
-var sentimentChecker = require(__dirname + '/../lib/sentiment_checker.js');
+var sentimentChecker = require(__dirname + '/../lib/sentiment/sentiment_checker.js');
 
 var twitterRouter = module.exports = exports = express.Router();
 
