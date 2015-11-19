@@ -37,7 +37,7 @@ describe('our NLP sever', function() {
     .end(function(err, res){
       expect(err).to.eql(null);
       expect(res.text).to.be.an('string');
-      expect(JSON.parse(res.text).sentiment).to.eql('Mildly Positive');
+      expect(JSON.parse(res.text).sentiment).to.eql('Positive');
       expect(JSON.parse(res.text).posTerms).to.eql({happy: 1});
 
       done();

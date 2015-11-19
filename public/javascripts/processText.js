@@ -1,6 +1,6 @@
     var createTable = function(obj) {
       var maxLength = Math.max(Object.keys(obj.vNegTerms).length, Object.keys(obj.negTerms).length, Object.keys(obj.posTerms).length, Object.keys(obj.vPosTerms).length);
-      if(maxLength > 4) maxLength = 4;
+      // if(maxLength > 4) maxLength = 4;
       returnText = '<tr><th colspan="2">' + 'Very Positve Terms' + '</th>'
       + '<th colspan="2">' + 'Positve Terms' + '</th>'
       + '<th colspan="2">' + 'Negative Terms' + '</th>'
