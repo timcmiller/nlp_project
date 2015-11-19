@@ -25,9 +25,12 @@ h2 {
     margin: 0 0.05rem;
   }
 
-.twitter-text {
-  display: inline;
-}
+ul.language-list {
+  margin-bottom: 0.66rem;
+  padding: 0; }
+  ul.language-list a.active {
+    padding-bottom: 4px;
+    border-bottom: 3px solid #226699; }
 
 /* about us */
 .profile-card {
