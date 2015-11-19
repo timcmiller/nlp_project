@@ -8,7 +8,7 @@ lingolemur.com
 
 Sentiment analysis tool
 
-Lingo Lemur uses natural language processing algorithms to determine the overall positivity, neutrality or negativity of a text input. The application allows users to receive sentiment analyses of books, articles, songs, tweets or reviews. 
+Lingo Lemur is a free and open source project that uses natural language processing algorithms to determine the overall positivity, neutrality or negativity of a text input. The application allows users to receive sentiment analyses of books, articles, songs, tweets or reviews.
 
 The application filters binding, or ‘stop’ words such as ‘about’, ‘the’, and ‘so’ and awards positive, neutral or negative scores to words determined to have sentiment. The values are on a scale of 5 to -5:
 
@@ -18,19 +18,19 @@ The application filters binding, or ‘stop’ words such as ‘about’, ‘the
 - 1 to - 3 = negative
 -4 to -5 = very negative
 
-We are grateful to Finn Årup Nielsen, whose AFINN list we employ for sentiment scoring.
+We are grateful to Finn Årup Nielsen, whose AFINN list we employ for sentiment scoring in English; to the Stop Words project at https://code.google.com/p/stop-words/ for lists of stop words in Swedish, French and Portuguese, and to SentiStrength at http://sentistrength.wlv.ac.uk/ for sentiment scores and negation words in Swedish, French and Portuguese.
 
 Code
 
 Lingo Lemur is written in JavaScript and Node.js, with the following dependencies: 
-* body-parser 
-* express 
-* lodash 
-mongoose
-chai
-gulp
-jshint
-mocha
+* body-parser
+* express
+* lodash
+* mongoose
+* chai
+* gulp
+* jshint
+* mocha
 
 Examples
 
@@ -65,6 +65,17 @@ returning the general sentiment: 
 var returnValue = sentimentChecker(text);
 ```
 
+Negation within a sentence or clause reverses the value of the sentiment word scores by tagging words after a negating term
+
+```
+var text = "My wife didn't enjoy the salad and the ambience wasn't pleasant."
+```
+is processed as:
+
+```
+``My wife didn't [NOT] enjoy the salad and the ambience wasn't [NOT] pleasant.''
+```
+
 Testing
 
 The application runs chai and mocha tests on the sentiment features, routes and the server.
@@ -73,7 +84,7 @@ License
 
 The application is released under the MIT license, printed below.
 Copyright (c)<2015> <A. Chang, K. Crosland, T. Miller, R. Stringer>
- 
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
