@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lingo Lemur</title>
+  <title>Lingo Lemur : Français</title>
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css">
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
@@ -35,16 +35,24 @@
 
   <div class="row">
     <div class="medium-11 large-centered columns">
-      <h1><small>Bienvenue à Lingo Lemur!</small></h1>
+      <h2><img class="homepage-lemur" src="https://s3-us-west-2.amazonaws.com/linolemur/lingolemur-round.jpg" alt="Logo">Bienvenue à Lingo Lemur!</h2>
         <p>Les lémuriens ont des competences de communication visuels et vocaux de qualité supérieure que les autres prosimiens nocturnes; et ils sont aussi l’un des primates de strepsirrhine sociale. Chez Lingo Lemur, nos algorithmes imitent leurs compétences de communication pour montrer si un texte est généralement négatif, neutre ou positif.</p>
+
+        <!-- language navs -->
+        <ul class="language-list inline-list right">
+          <li><a href="/"><img class="flag" src="https://s3-us-west-2.amazonaws.com/linolemur/flags/UK.png" alt="UK flag"></a></li>
+          <li><a class="active" href="fr.html"><img class="flag" src="https://s3-us-west-2.amazonaws.com/linolemur/flags/french.png" alt="UK flag"></a></li>
+          <li><a href="sw.html"><img class="flag" src="https://s3-us-west-2.amazonaws.com/linolemur/flags/swedish.png" alt="UK flag"></a></li>
+          <li><a href="pt.html"><img class="flag" src="https://s3-us-west-2.amazonaws.com/linolemur/flags/brazil.png" alt="UK flag"></a></li>
+        </ul>
+      <div class="clearfix">
 
       <!-- begin article text field -->
       <div class="process-text-field">
         <div class="switch-button">
           <i class="fi-social-twitter twitter large"></i> Analyse des sentiments sur Twitter
         </div>
-        <p>Maximum de mots 5,000</p>
-        <textarea id="processText" rows="10" placeholder="Tapex ou collez votre text ici…"></textarea>
+        <textarea id="processText" rows="10" placeholder="Tapex ou collez votre text ici. Maximum de mots 5,000..."></textarea>
         <button type="submit" class="button radius success">Process</button>
 
         <!-- show result of processed text -->
