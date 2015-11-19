@@ -26,6 +26,18 @@ staticRouter.post('/process', bodyParser.urlencoded({extended: true}), function(
   res.json(returnJSON);
 });
 
+staticRouter.get('/fr', function(req, res){
+  res.sendFile(path.resolve(__dirname + '/../views/language-views/fr.html'));
+});
+
+staticRouter.get('/pt', function(req, res){
+  res.sendFile(path.resolve(__dirname + '/../views/language-views/pt.html'));
+});
+
+staticRouter.get('/sw', function(req, res){
+  res.sendFile(path.resolve(__dirname + '/../views/language-views/sw.html'));
+});
+
 staticRouter.get('/', function(req, res){
   res.sendFile(path.resolve(__dirname + '/../views/index.html'));
 });

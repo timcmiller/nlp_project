@@ -28,6 +28,36 @@ describe('our NLP sever', function() {
   });
 
   before(function(done) {
+    fs.readFile(__dirname + '/../views/language-views/fr.html', function(err, data) {
+      if(err) throw err;
+      this.fr = data.toString();
+
+      done();
+
+    }.bind(this));
+  });
+
+  before(function(done) {
+    fs.readFile(__dirname + '/../views/language-views/pt.html', function(err, data) {
+      if(err) throw err;
+      this.pt = data.toString();
+
+      done();
+
+    }.bind(this));
+  });
+
+  before(function(done) {
+    fs.readFile(__dirname + '/../views/language-views/sw.html', function(err, data) {
+      if(err) throw err;
+      this.sw = data.toString();
+
+      done();
+
+    }.bind(this));
+  });
+
+  before(function(done) {
     fs.readFile(__dirname + '/../views/404.html', function(err, data) {
       if(err) throw err;
       this.fourOhFourHtml = data.toString();
@@ -81,6 +111,42 @@ describe('our NLP sever', function() {
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);
         expect(res.text).to.eql(this.aboutUsHtml);
+
+        done();
+    }.bind(this));
+  });
+
+  it('should respond to GET request to /fr route', function(done) {
+    chai.request('localhost:3000')
+      .get('/fr')
+      .end(function(err, res){
+        expect(err).to.eql(null);
+        expect(res.status).to.eql(200);
+        expect(res.text).to.eql(this.fr);
+
+        done();
+    }.bind(this));
+  });
+
+  it('should respond to GET request to /pt route', function(done) {
+    chai.request('localhost:3000')
+      .get('/pt')
+      .end(function(err, res){
+        expect(err).to.eql(null);
+        expect(res.status).to.eql(200);
+        expect(res.text).to.eql(this.pt);
+
+        done();
+    }.bind(this));
+  });
+
+  it('should respond to GET request to /sw route', function(done) {
+    chai.request('localhost:3000')
+      .get('/sw')
+      .end(function(err, res){
+        expect(err).to.eql(null);
+        expect(res.status).to.eql(200);
+        expect(res.text).to.eql(this.sw);
 
         done();
     }.bind(this));
