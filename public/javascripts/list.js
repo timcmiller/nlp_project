@@ -36,10 +36,11 @@ $(document).ready(function() {
           var article = articles[a];
           console.log(article);
           $("#returnlist").append("<p>" + article.title +"</p><p>The sentiment of this text is " + article.sentiment + "<span class='rating'> (" + article.sentimentValue + ")</span>.<br>"
-          + "Here are the words that affect the rating, and their frequency:<br>"
+          + "Here are the values and frequencies of words which contributed to the rating:<br>"
           + '<table id="sentiment">'
           + createTable(article)
           + '</table>' + "</p>");
         }
       });
     });
+
