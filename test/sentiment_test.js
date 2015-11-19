@@ -24,7 +24,7 @@ describe('sentiment analysis', function(){
     expect(returnObject).to.have.property('vNegTerms');
     expect(returnObject).to.have.property('posTerms');
     expect(returnObject).to.have.property('vPosTerms');
-    expect(returnObject.sentiment).to.eql('Mildly Negative');
+    expect(returnObject.sentiment).to.eql('Negative');
   });
   it('the sentiment mapper should take a sentiment object and map to Article schema', function(){
     var testString = 'abandon, disjointed';
@@ -38,7 +38,7 @@ describe('sentiment analysis', function(){
     expect(returnArticle).to.have.property('vPosTerms');
     expect(returnArticle.negTerms[0]).to.have.property('word');
     expect(returnArticle.negTerms[0]).to.have.property('count');
-    expect(returnArticle.sentiment).to.eql('Mildly Negative');
+    expect(returnArticle.sentiment).to.eql('Negative');
   });
   it('the sentiment mapper should map a title parameter', function(){
     var testString = 'a test string';
@@ -57,6 +57,6 @@ describe('sentiment analysis', function(){
       expect(reversed).to.have.property('vPosTerms');
       expect(reversed.negTerms).to.have.property('abandon');
       expect(reversed.negTerms).to.have.property('disjointed');
-      expect(reversed.sentiment).to.eql('Mildly Negative');
+      expect(reversed.sentiment).to.eql('Negative');
   });
 });
