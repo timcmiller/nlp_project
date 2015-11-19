@@ -3,15 +3,34 @@ var chaihttp = require('chai-http');
 chai.use(chaihttp);
 var expect = chai.expect;
 var fs = require('fs');
-var server = require(__dirname + '/../index.js');
-
+require(__dirname + '/../index.js');
 
 describe('our NLP sever', function() {
 
   before(function(done) {
     fs.readFile(__dirname + '/../views/index.html', function(err, data) {
       if(err) throw err;
-      this.html = data.toString();
+      this.indexHtml = data.toString();
+
+      done();
+
+    }.bind(this));
+  });
+
+  before(function(done) {
+    fs.readFile(__dirname + '/../views/about-us.html', function(err, data) {
+      if(err) throw err;
+      this.aboutUsHtml = data.toString();
+
+      done();
+
+    }.bind(this));
+  });
+
+  before(function(done) {
+    fs.readFile(__dirname + '/../views/404.html', function(err, data) {
+      if(err) throw err;
+      this.fourOhFourHtml = data.toString();
 
       done();
 
@@ -24,7 +43,7 @@ describe('our NLP sever', function() {
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);
-        expect(res.text).to.eql(this.html);
+        expect(res.text).to.eql(this.indexHtml);
         done();
       }.bind(this));
   });
@@ -47,8 +66,45 @@ describe('our NLP sever', function() {
     chai.request('localhost:3000')
     .get('/sosorrymrlemur')
     .end(function(err, res){
+      expect(err).to.eql(null);
       expect(res.status).to.eql(404);
+      expect(res.text).to.eql(this.fourOhFourHtml);
+
       done();
-    });
+    }.bind(this));
+  });
+
+  it('should respond to GET request to about-me route', function(done) {
+    chai.request('localhost:3000')
+      .get('/about-us')
+      .end(function(err, res){
+        expect(err).to.eql(null);
+        expect(res.status).to.eql(200);
+        expect(res.text).to.eql(this.aboutUsHtml);
+
+        done();
+    }.bind(this));
+  });
+
+  it('should respond to GET request to list route', function(done) {
+    chai.request('localhost:3000')
+      .get('/lists')
+      .end(function(err, res){
+        expect(err).to.eql(null);
+        expect(res.status).to.eql(200);
+
+        done();
+    }.bind(this));
+  });
+
+  it('should respond to GET request to lists route', function(done) {
+    chai.request('localhost:3000')
+      .get('/lists/id')
+      .end(function(err, res){
+        expect(err).to.eql(null);
+        expect(res.status).to.eql(200);
+
+        done();
+    }.bind(this));
   });
 });
