@@ -92,6 +92,21 @@ describe('our api routes', function() {
     });
 });
 
+describe('the twitter routes', function() {
+
+  it('twitter search api should return an object', function(done) {
+    chai.request('localhost:3000')
+      .post('/api/twitter/hashtags')
+      .send({text: 'twitter'})
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        expect(res).to.be.an('object');
+        done();
+      });
+
+  });
+});
+
 describe('the list routes', function() {
 
   it('should be able to create a list', function(done) {
