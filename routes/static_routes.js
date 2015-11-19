@@ -22,7 +22,7 @@ staticRouter.get('/lists/:id', function(req, res){
 
 staticRouter.post('/process', bodyParser.urlencoded({extended: true}), function(req, res){
   var recievedText = (req.body.text);
-  var returnJSON = (sentimentChecker(recievedText));
+  var returnJSON = (sentimentChecker(recievedText, req.body.language));
   res.json(returnJSON);
 });
 
