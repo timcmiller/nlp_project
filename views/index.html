@@ -36,16 +36,24 @@
 
   <div class="row">
     <div class="medium-11 large-centered columns">
-      <h1><small>Welcome to Lingo Lemur</small></h1>
+        <h2><img class="homepage-lemur" src="https://s3-us-west-2.amazonaws.com/linolemur/lingolemur-round.jpg" alt="Logo">Lingo Lemur</h2>
         <p>Lemurs make more use of visual and vocal communication than other nocturnal prosimians, and they’re also one of the more social strepsirrhine primates. At Lingo Lemur, our algorithms call upon their powers of communication to show whether a text is generally negative, neutral or positive.</p>
+
+        <!-- language navs -->
+        <ul class="inline-list right">
+          <li><a class="#"><img class="flag" src="https://s3-us-west-2.amazonaws.com/linolemur/flags/UK.png" alt="UK flag"></a></li>
+          <li><a class="#"><img class="flag" src="https://s3-us-west-2.amazonaws.com/linolemur/flags/french.png" alt="UK flag"></a></li>
+          <li><a class="#"><img class="flag" src="https://s3-us-west-2.amazonaws.com/linolemur/flags/swedish.png" alt="UK flag"></a></li>
+          <li><a class="#"><img class="flag" src="https://s3-us-west-2.amazonaws.com/linolemur/flags/brazil.png" alt="UK flag"></a></li>
+        </ul>
+      <div class="clearfix">
 
       <!-- begin article text field -->
       <div class="process-text-field">
         <div class="switch-button">
           <i class="fi-social-twitter twitter large"></i> Twitter sentiment analysis
         </div>
-        <p>Max number of words 5000</p>
-        <textarea id="processText" rows="10" placeholder="Type or paste your text here..."></textarea>
+        <textarea id="processText" rows="10" placeholder="Type or paste your text here. Max number of words 5000..."></textarea>
         <button type="submit" class="button radius success">Process</button>
 
         <!-- show result of processed text -->
