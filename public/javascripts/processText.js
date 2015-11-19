@@ -28,13 +28,15 @@ $(document).ready(function() {
   }); // end switch botton
 
   $(function(){
+    var url = window.location.pathname;
+    var lang = url.substring(url.lastIndexOf('/') + 1);
     var processText = '';
     var returnString = '';
     $("button[type='submit']").click(function(){
       $(".returnString").fadeIn(500);
       $(".returnString").empty();
       processText = $("#processText").val();
-      $.post("/process", {text: processText}).done(function(data){
+      $.post("/process", {language: lang, text: processText}).done(function(data){
         $(".returnString").html(
           '<p>The sentiment of your text is ' + data.sentiment + '.<br>'
           + 'The words that are affecting the rating are and how many times they appear are:<br></p>'
@@ -46,6 +48,8 @@ $(document).ready(function() {
   });
 
   $(function(){
+    var url = window.location.pathname;
+    var lang = url.substring(url.lastIndexOf('/') + 1);
     var processText = '';
     var returnString = '';
     $("button[type='submit']").click(function(){
@@ -59,7 +63,7 @@ $(document).ready(function() {
         processText = $("#radioSelection").val();
         path = "/api/twitter/timeline";
       }
-      $.post(path, {text: processText}).done(function(data){
+      $.post(path, {language: lang, text: processText}).done(function(data){
         $(".returnTweet").html(
           '<p>The sentiment of the tweets is ' + data.sentiment + '.<br>'
           + 'The words that are affecting the rating are and how many times they appear are:<br></p>'
