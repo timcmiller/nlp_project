@@ -7,12 +7,27 @@ textarea {
   margin: 0px auto 40px;
   background: #f8f8f8; }
 
+h2 {
+  word-spacing: -3.33px;
+}
+
 .returnString, .returnTweet {
   display: none }
-/*  img.homepage-lemur {
+  img.homepage-lemur {
   border-radius: 50%;
+  margin-right: 0.66rem;
+  margin-top: 0.33rem;
+  text-align: center;
   border: 1px solid #333;
-  margin: 10px; }*/
+  width: 6.33rem; }
+  img.flag {
+    width: 25px;
+    margin: 0 0.05rem;
+  }
+
+.twitter-text {
+  display: inline;
+}
 
 /* about us */
 .profile-card {
