@@ -37,15 +37,45 @@ $(document).ready(function() {
       $(".returnString").empty();
       processText = $("#processText").val();
       $.post("/process", {language: lang, text: processText}).done(function(data){
-        $(".returnString").html(
-          '<p>The sentiment of your text is ' + data.sentiment + '.<br>'
-          + 'The words that are affecting the rating are and how many times they appear are:<br></p>'
-          + '<table id="sentiment">'
-          + createTable(data)
-          + '</table>');
+        $(".returnString").html(tableHeader(lang, data));
       });
     });
   });
+
+function tableHeader(language, data) {
+  if (language === "fr") {
+    var returnText = '<p>Le sentiment de votre text est ' + data.sentiment + '.<br>'
+          + 'Voici les valeurs et la fréquence des mots qui ont contribué au résultat:<br></p>'
+          + '<table id="sentiment">'
+          + createTable(data)
+          + '</table>';
+          return returnText;
+  }
+  if (language === "sw") {
+    var returnText = '<p>Känslan av din text är ' + data.sentiment + '.<br>'
+          + 'Här är de värden och frekvenser av ord som bidrog till betyg:<br></p>'
+          + '<table id="sentiment">'
+          + createTable(data)
+          + '</table>';
+          return returnText;
+
+  }
+    if (language === "pt") {
+          var returnText = '<p>O sentimento de seu texto é ' + data.sentiment + '.<br>'+ 'Aqui estão os valores e à frequência das palavras que contribuíram para a classificação:<br></p>'+'<table id="sentiment">'
+          + createTable(data)
+          + '</table>';
+          return returnText;
+
+}
+  else {
+         var returnText = '<p>The sentiment of your text is ' + data.sentiment + '.<br>'
+          + 'The words that are affecting the rating are and how many times they appear are:<br></p>'
+          + '<table id="sentiment">'
+          + createTable(data)
+          + '</table>';
+          return returnText;
+  }
+};
 
   $(function(){
     var url = window.location.pathname;
