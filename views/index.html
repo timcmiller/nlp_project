@@ -27,7 +27,13 @@
         <!-- Right Nav Section -->
         <ul class="right">
           <li class="active"><a href="/lists">Analysis Examples</a></li>
-          <li><a href="/about-us">About Us</a></li>
+          <li class="has-dropdown">
+            <a href="#">Menu</a>
+            <ul class="dropdown">
+              <li><a href="/about-us">About Us</a></li>
+              <li><a href="mailto:lingolemur@gmail.com">Contact Us</a></li>
+            </ul>
+          </li>
         </ul>
       </section>
     </nav>
@@ -51,7 +57,7 @@
       <!-- begin article text field -->
       <div class="process-text-field">
         <div class="switch-button">
-          <i class="fi-social-twitter twitter large"></i> Twitter sentiment analysis
+        <i class="fi-social-twitter twitter large"></i> <span class="underline-toggle-text">Click here for Twitter sentiment analysis</span>
         </div>
         <textarea id="processText" rows="10" placeholder="Type or paste your text here. Max number of words 5000..."></textarea>
         <button type="submit" class="button radius success">Process</button>
@@ -64,7 +70,8 @@
 
       <!-- begin twitter iput field -->
       <div class="process-text-field" style="display: none">
-        <div class="switch-button"><i class="fi-pencil"> Article sentiment analysis</i></div>
+      <div class="switch-button"><i class="fi-pencil"> <span class="underline-toggle-text">Click here for article sentiment analysis</i></span>
+        </div>
           <div class="row">
             <div class="large-12 columns">
               <label>Search by Twitter @Handle or #HashTag</label><input type="radio" name="select" value="hashTag" id="hashTag">

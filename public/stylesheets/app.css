@@ -32,6 +32,9 @@ ul.language-list {
     padding-bottom: 4px;
     border-bottom: 3px solid #226699; }
 
+.underline-toggle-text {
+  border-bottom: 1px solid #33aaff; }
+
 /* about us */
 .profile-card {
   padding: 1rem;
